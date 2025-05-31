@@ -5,11 +5,15 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mushfiq's Portfolio</title>
+  <title>Mushfiq's Royal Portfolio 👑</title>
   <script src="https://kit.fontawesome.com/bb367858c4.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
@@ -17,135 +21,157 @@
   <nav id="navbar" class="nav">
     <ul class="nav-list">
       <li>
-        <a href="#welcome-section">About</a>
+        <a href="#welcome-section"><i class="fas fa-user"></i> About</a>
       </li>
       <li>
-        <a href="#projects">Work</a>
+        <a href="#projects"><i class="fas fa-laptop-code"></i> Work</a>
       </li>
       <li>
-        <a href="#contact">Contact</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
       </li>
     </ul>
   </nav>
 
-  <section id="welcome-section" class="welcome-section">
-    <h1>Hey, I'm Mushfiq</h1>
-    <p>a Front-End Web Developer</p>
-  </section>
+  <main>
+    <section id="welcome-section" class="welcome-section">
+      <h1 data-aos="fade-down" data-aos-duration="1000">Hey, I'm Mushfiq</h1>
+      <p data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200"><i class="fas fa-code-branch"></i> a
+        Front-End Web Enthusiast ✨</p>
+    </section>
 
-  <section id="projects" class="projects-section">
-    <h2 class="projects-section-header">These are some of my projects</h2>
+    <section id="projects" class="projects-section" data-aos="fade-up">
+      <h2 class="projects-section-header">These are some of my creations 🚀</h2>
 
-    <div class="projects-grid">
-      <a href="https://mushfiqplabon.github.io/Tribute1Fatih/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/Tribute1Fatih/blob/main/image.png?raw=true"
-          alt="Screenshot of Tribute Page project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          Tribute Page
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+      <div class="projects-grid">
+        <a href="https://mushfiqplabon.github.io/Tribute1Fatih/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="100">
+          <img class="project-image" src="https://github.com/MushfiqPlabon/Tribute1Fatih/blob/main/image.png?raw=true"
+            alt="Screenshot of Tribute Page project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            Tribute Page
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/SurveyForm/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/SurveyForm/blob/main/image.png?raw=true"
-          alt="Screenshot of Sample Survey Form project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          Sample Survey Form
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/SurveyForm/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="200">
+          <img class="project-image" src="https://github.com/MushfiqPlabon/SurveyForm/blob/main/image.png?raw=true"
+            alt="Screenshot of Sample Survey Form project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            Sample Survey Form
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/backgroundGradient/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image"
-          src="https://github.com/MushfiqPlabon/backgroundGradient/blob/main/image.png?raw=true"
-          alt="Screenshot of Background Gradient Changer project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          Background Gradient Changer
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/backgroundGradient/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="300">
+          <img class="project-image"
+            src="https://github.com/MushfiqPlabon/backgroundGradient/blob/main/image.png?raw=true"
+            alt="Screenshot of Background Gradient Changer project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            Background Gradient Changer
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/ShoppingList/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/ShoppingList/blob/main/image.png?raw=true"
-          alt="Screenshot of Simple ShoppingList project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          Simple ShoppingList
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/ShoppingList/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="400">
+          <img class="project-image" src="https://github.com/MushfiqPlabon/ShoppingList/blob/main/image.png?raw=true"
+            alt="Screenshot of Simple ShoppingList project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            Simple ShoppingList
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/CatPhotos/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/CatPhotos/blob/master/image.png?raw=true"
-          alt="Screenshot of CatPhotos project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          CatPhotos
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/CatPhotos/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="500">
+          <img class="project-image" src="https://github.com/MushfiqPlabon/CatPhotos/blob/master/image.png?raw=true"
+            alt="Screenshot of CatPhotos project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            CatPhotos
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/technicalDocJS/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/technicalDocJS/blob/main/image.png?raw=true"
-          alt="Screenshot of JavaScript Documentation project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          JavaScript Docs
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/technicalDocJS/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="600">
+          <img class="project-image" src="https://github.com/MushfiqPlabon/technicalDocJS/blob/main/image.png?raw=true"
+            alt="Screenshot of JavaScript Documentation project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            JavaScript Docs
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://mushfiqplabon.github.io/BlissLandingPage/" target="_blank" rel="noopener noreferrer"
-        class="project project-tile">
-        <img class="project-image" src="https://github.com/MushfiqPlabon/BlissLandingPage/blob/main/image.png?raw=true"
-          alt="Screenshot of Bliss Landing Page project" />
-        <p class="project-title">
-          <span class="code">&lt;</span>
-          Bliss Landing Page
-          <span class="code">&#47;&gt;</span>
-        </p>
-      </a>
+        <a href="https://mushfiqplabon.github.io/BlissLandingPage/" target="_blank" rel="noopener noreferrer"
+          class="project project-tile" data-aos="fade-up" data-aos-delay="700">
+          <img class="project-image"
+            src="https://github.com/MushfiqPlabon/BlissLandingPage/blob/main/image.png?raw=true"
+            alt="Screenshot of Bliss Landing Page project" />
+          <p class="project-title">
+            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            Bliss Landing Page
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
 
-      <a href="https://github.com/MushfiqPlabon?tab=repositories" class="btn btn-show-all" target="_blank"
-        rel="noopener noreferrer">Show all on GitHub<i class="fas fa-chevron-right"></i></a>
-    </div>
-  </section>
+        <a href="https://github.com/MushfiqPlabon?tab=repositories" class="btn btn-show-all project-tile"
+          target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="800">Show all on GitHub <i
+            class="fas fa-chevron-right"></i></a>
+      </div>
+    </section>
 
-  <section id="contact" class="contact-section">
-    <div class="contact-section-header">
-      <h2>Let's work together...</h2>
-      <p>How may I assist you?</p>
-    </div>
-    <div class="contact-links">
-      <a href="https://www.facebook.com/hellraiser.mrp/" target="_blank" rel="noopener noreferrer"
-        class="btn contact-details"><i class="fab fa-facebook-square"></i> Facebook</a>
-      <a id="profile-link" href="https://github.com/MushfiqPlabon/" target="_blank" rel="noopener noreferrer"
-        class="btn contact-details"><i class="fab fa-github"></i> GitHub</a>
-      <a href="mailto:rahman.mushfiq2000@gmail.com" class="btn contact-details"><i class="fas fa-at"></i> Send a
-        mail</a>
-      <a href="tel:+8801641879353" class="btn contact-details"><i class="fas fa-mobile-alt"></i> Call me</a>
-    </div>
-  </section>
+    <section id="contact" class="contact-section" data-aos="fade-up">
+      <div class="contact-section-header">
+        <h2>Let's connect and build something amazing! 🤝</h2>
+        <p><i class="fas fa-hands-helping"></i> How may I assist you?</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://www.facebook.com/hellraiser.mrp/" target="_blank" rel="noopener noreferrer"
+          class="btn contact-details" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-facebook-square"></i>
+          Facebook</a>
+        <a id="profile-link" href="https://github.com/MushfiqPlabon/" target="_blank" rel="noopener noreferrer"
+          class="btn contact-details" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-github"></i> GitHub</a>
+        <a href="mailto:rahman.mushfiq2000@gmail.com" class="btn contact-details" data-aos="zoom-in"
+          data-aos-delay="300"><i class="fas fa-at"></i> Send a
+          mail</a>
+        <a href="tel:+8801641879353" class="btn contact-details" data-aos="zoom-in" data-aos-delay="400"><i
+            class="fas fa-mobile-alt"></i> Call me</a>
+      </div>
+    </section>
+  </main>
 
-  <footer>
+  <footer data-aos="fade-up">
     <p>
-      **Note: This portfolio is currently under development. Projects and contact
-      details are subject to change.
+      <strong><i class="fas fa-exclamation-circle"></i> Note: This portfolio is currently under development. Projects
+        and contact
+        details are subject to change.</strong>
     </p>
     <p>
-      &copy; Created for
+      <i class="fas fa-copyright"></i> Created for
       <a href="https://www.freecodecamp.com/" target="_blank">freeCodeCamp <i class="fab fa-free-code-camp"></i></a>
     </p>
   </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset: 120, // offset (in px) from the original trigger point
+      delay: 100, // values from 0 to 3000, with step 50ms
+      duration: 800, // values from 0 to 3000, with step 50ms
+      easing: 'ease-in-out', // default easing for AOS animations
+      once: true, // whether animation should happen only once - while scrolling down
+      mirror: false, // whether elements should animate out while scrolling past them
+      anchorPlacement: 'top-bottom', // defines which position of the element should trigger the animation
+    });
+  </script>
 
 </body>
 

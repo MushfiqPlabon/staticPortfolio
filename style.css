@@ -5,13 +5,34 @@
   --main-gray: gray;
   --main-black: black;
   --main-white: white;
-  --project-bg-light: rgba(255, 255, 255, 0.466);
-  --project-shadow: #000000c5;
-  --code-color: rgb(0, 0, 0);
+  --project-bg-light: rgba(255, 255, 255, 0.08);
+  /* More subtle, darker */
+  --project-shadow: #000000e0;
+  /* Darker, more intense shadow */
+  --code-color: rgba(255, 255, 255, 0.7);
+  /* Lighter for dark background */
   --code-hover-color: #ff7f50;
-  --navbar-bg: rgba(0, 0, 0, 0.452);
-  --navbar-text-color: rgba(255, 255, 255, 0.795);
+  /* Existing, good for contrast */
+  --navbar-bg: rgba(0, 0, 0, 0.55);
+  /* Slightly less transparent */
+  --navbar-text-color: rgba(255, 255, 255, 0.85);
+  /* Slightly brighter */
   --navbar-hover-glow: #49ff18;
+  /* Electric green glow */
+
+  /* NEW GLOW COLORS */
+  --glow-primary: #ff5e00;
+  /* A vibrant orange-red for general glow */
+  --glow-secondary: #00eeff;
+  /* A bright cyan for secondary highlights */
+  --glow-strong: #fff;
+  /* Pure white for the strongest part of the glow */
+
+  /* Blur / Backdrop Filter variables */
+  --backdrop-blur-amount: 12px;
+  /* Increased blur */
+  --backdrop-invert-amount: 5%;
+  /* Keep inversion subtle */
 }
 
 /* Universal box-sizing reset */
@@ -19,15 +40,40 @@
 *::before,
 *::after {
   box-sizing: inherit;
+  /* Inherits box-sizing from html */
 }
 
 /* Base HTML styles */
 html {
   box-sizing: border-box;
-  /* Set base font-size for rem units (1rem = 10px) */
+  /* Ensures padding and border are included in the element's total width and height */
   font-size: 62.5%;
+  /* Sets 1rem to 10px, for easier calculations */
   scroll-behavior: smooth;
   /* Smooth scrolling for anchor links */
+}
+
+/*
+  Animations for reduced motion preference:
+  If a user has set a preference for reduced motion,
+  we disable most non-essential animations.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    /* Disable smooth scroll */
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    /* Drastically reduce animation duration */
+    animation-iteration-count: 1 !important;
+    /* Only one iteration */
+    transition-duration: 0.01ms !important;
+    /* Drastically reduce transition duration */
+    scroll-behavior: auto !important;
+    /* Disable smooth scroll */
+  }
 }
 
 /* Body styles */
@@ -36,14 +82,42 @@ body {
   font-size: 1.8rem;
   /* Equivalent to 18px */
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
+  /* Slightly increased for readability on dark background */
   color: var(--main-white);
-  /* Use CSS variable */
+  /* Use CSS variable for text color */
   margin: 0;
   /* Remove default body margin */
-  padding: 0;
-  /* Remove default body padding */
+  padding-top: 7rem;
+  /* Default padding for larger screens to clear fixed navbar */
+  /* Animated gradient background */
+  background: linear-gradient(45deg,
+      rgba(15, 0, 0, 0.95) 0%,
+      rgba(30, 0, 0, 0.95) 50%,
+      rgba(15, 0, 0, 0.95) 100%);
+  background-size: 400% 400%;
+  /* Make background larger than viewport for movement */
+  animation: gradientShift 15s ease infinite alternate;
+  /* Apply animation */
+  min-height: 100vh;
+  /* Ensure body takes full viewport height for consistent background */
 }
+
+/* Keyframes for subtle background gradient shift */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* Heading styles */
 h1,
@@ -51,29 +125,38 @@ h2 {
   font-family: "Raleway", sans-serif;
   font-weight: 700;
   text-align: center;
+  color: var(--main-white);
+  /* Ensure headings are white */
 }
 
 h1 {
   font-size: 6rem;
   /* Equivalent to 60px */
+  text-shadow: 0 0 1rem rgba(255, 255, 255, 0.5), 0 0 2rem rgba(255, 255, 255, 0.3);
+  /* Subtle glow for headings */
 }
 
 h2 {
   font-size: 4.2rem;
   /* Equivalent to 42px */
+  text-shadow: 0 0 0.8rem rgba(255, 255, 255, 0.4);
 }
 
 /* List and link resets */
 ul {
   list-style: none;
   /* Remove bullet points from lists */
+  padding: 0;
+  /* Remove default list padding */
+  margin: 0;
+  /* Remove default list margin */
 }
 
 a {
   text-decoration: none;
   /* Remove underline from links */
   color: var(--main-white);
-  /* Use CSS variable */
+  /* Use CSS variable for link color */
 }
 
 /* Image styles */
@@ -81,66 +164,99 @@ img {
   display: block;
   /* Remove extra space below images */
   width: 100%;
+  /* Images fill their container width */
+}
+
+/* Main content wrapper */
+main {
+  display: block;
+  /* Ensures it takes up space correctly */
 }
 
 /* Navigation bar styles */
 .nav {
   display: grid;
   place-items: center;
-  /* Center content both horizontally and vertically */
+  /* Centers content both horizontally and vertically */
   position: fixed;
-  /* Fix navigation to the top */
+  /* Ensures it stays in place relative to the viewport */
   top: 0;
+  /* Sticks to the very top of the viewport */
   left: 0;
   width: 100%;
+  /* Spans the full width of the viewport */
   background: var(--navbar-bg);
-  /* Use CSS variable */
-  backdrop-filter: blur(10px) invert(5%);
+  /* Use CSS variable for background (rgba(0, 0, 0, 0.55)) */
+  /* --- MODIFIED: Added -webkit- prefix and removed unwanted background-color fallback --- */
+  -webkit-backdrop-filter: blur(var(--backdrop-blur-amount)) invert(var(--backdrop-invert-amount));
+  /* For Safari/iOS */
+  backdrop-filter: blur(var(--backdrop-blur-amount)) invert(var(--backdrop-invert-amount));
   /* Frosted glass effect */
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-  box-shadow: 5px 5px 50px 5px rgba(0, 0, 0, 0.78);
-  /* Consistent box shadow */
-  z-index: 10;
-  /* Ensure nav is above other content */
+  /* --- END MODIFIED --- */
+  border-bottom-left-radius: 4rem;
+  /* Consistent border-radius */
+  border-bottom-right-radius: 4rem;
+  /* Consistent border-radius */
+  box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.7);
+  /* Refined shadow */
+  z-index: 999;
+  /* Increased z-index to ensure it stays on top of everything else */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  /* Smooth transitions for base state */
 }
 
 .nav-list {
   display: flex;
   /* Use flexbox for navigation items */
   flex-wrap: wrap;
+  /* Allow items to wrap to the next line */
   justify-content: center;
   /* Center items horizontally */
   align-items: center;
-  /* align-self: center; is not needed here as flex container handles alignment */
+  /* Align items vertically */
 }
 
 .nav-list a {
   display: block;
   font-size: 2.2rem;
   /* Equivalent to 22px */
-  padding: 2rem;
-  /* Consistent padding */
+  padding: 2rem 2.5rem;
+  /* Consistent padding with slightly more horizontal space */
   color: var(--navbar-text-color);
-  /* Use CSS variable */
-  /* margin-left: auto; margin-right: auto; is not needed for flex items centered by justify-content */
+  /* Use CSS variable for text color */
+  transition: all 0.4s ease-out;
+  /* Smoother transition for glow */
+  position: relative;
+  /* Needed for potential pseudo-elements or complex glows */
+  overflow: hidden;
+  /* Ensures glow stays within bounds if text shadow overflows */
 }
 
 .nav-list a:hover {
-  text-shadow: 0 0 5px var(--main-white), 0 0 10px var(--main-white),
-    0 0 15px var(--main-white), 0 0 20px var(--navbar-hover-glow),
-    0 0 30px var(--navbar-hover-glow), 0 0 40px var(--navbar-hover-glow),
-    0 0 55px var(--navbar-hover-glow), 0 0 75px var(--navbar-hover-glow);
-  border-radius: 40px;
+  color: var(--glow-strong);
+  /* Text becomes pure white on hover */
+  text-shadow: 0 0 0.5rem var(--glow-strong),
+    0 0 1rem var(--glow-primary),
+    0 0 2rem var(--glow-primary),
+    0 0 4rem var(--glow-secondary),
+    0 0 6rem var(--glow-secondary),
+    0 0 8rem var(--glow-strong);
+  /* More intense multi-color glow */
 }
 
 /* Media query for smaller navigation on small screens */
-@media (max-width: 460px) {
+@media (max-width: 46rem) {
 
-  /* Using a pixel value for clarity, equivalent to ~28.75em */
-  .nav {
-    justify-content: center;
-    /* Ensure nav items remain centered */
+  /* Equivalent to 460px */
+  .nav-list a {
+    font-size: 1.8rem;
+    /* Smaller text on tiny screens */
+    padding: 1.5rem 1rem;
+  }
+
+  body {
+    padding-top: 5.5rem;
+    /* Adjust padding for smaller navbar height on mobile */
   }
 }
 
@@ -152,73 +268,84 @@ img {
   align-items: center;
   text-align: center;
   width: 100%;
-  height: 100vh;
-  /* Full viewport height */
-  /* Using standard linear-gradient for modern browsers and variables */
+  min-height: 100vh;
+  /* Use min-height to ensure it always takes at least full viewport height, but can expand */
   background: linear-gradient(6deg,
       var(--main-dark-red) 0%,
       var(--main-red) 100%);
-  /* Fallbacks for older browsers, although modern approach is preferred */
-  background: -moz-linear-gradient(6deg,
-      rgba(36, 0, 0, 1) 0%,
-      rgba(121, 9, 9, 1) 100%);
-  background: -webkit-linear-gradient(6deg,
-      rgba(36, 0, 0, 1) 0%,
-      rgba(121, 9, 9, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#240000", endColorstr="#790909", GradientType=1);
 }
 
 .welcome-section>p {
-  font-size: 3rem;
-  /* Equivalent to 30px */
-  font-weight: 200;
+  font-size: 3.2rem;
+  /* Slightly larger */
+  font-weight: 300;
+  /* Slightly heavier */
   font-style: italic;
-  color: red;
-  /* Specific color for this text */
+  color: var(--glow-primary);
+  /* Use a glow variable for impact */
+  text-shadow: 0 0 0.8rem var(--glow-primary), 0 0 1.5rem rgba(255, 94, 0, 0.5);
+  /* Subtle glow */
 }
 
 /* Projects section styles */
 .projects-section {
   text-align: center;
   padding: 10rem 2rem;
-  /* Removed var(--main-blue) as it was undefined. Assuming background should be something specific or related to the overall theme. */
-  /* Consider a subtle background color or gradient if needed */
-  background-color: #333;
-  /* Example fallback if no variable is defined */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Darker, slightly transparent background */
+  box-shadow: inset 0 1rem 2rem rgba(0, 0, 0, 0.5), inset 0 -1rem 2rem rgba(0, 0, 0, 0.5);
+  /* Inner shadows for depth */
 }
 
 .projects-section-header {
-  max-width: 50vw;
+  max-width: 70vw;
+  /* Wider header, dynamic with viewport width */
   margin: 0 auto 6rem auto;
-  border-bottom: 0.2rem solid red;
-  color: var(--main-black);
-  /* Text color set to black */
+  border-bottom: 0.2rem solid var(--glow-primary);
+  /* Use glow color for border */
+  color: var(--main-white);
+  /* Ensure text is white */
+  padding-bottom: 1rem;
+  /* Space for the border */
+  text-shadow: 0 0 0.5rem var(--glow-secondary);
+  /* Header glow */
+  transition: all 0.3s ease;
+  /* Smooth transition */
+}
+
+.projects-section-header:hover {
+  text-shadow: 0 0 1rem var(--glow-strong), 0 0 2rem var(--glow-secondary);
+  /* More intense header glow */
+  border-color: var(--glow-strong);
+  /* Border brightens */
 }
 
 /* Media query for smaller project section header on small screens */
-@media (max-width: 460px) {
+@media (max-width: 46rem) {
 
-  /* Using a pixel value for clarity, equivalent to ~28.75em */
+  /* Equivalent to 460px */
   .projects-section-header {
-    font-size: 4rem;
-    /* Equivalent to 40px */
+    font-size: 3.6rem;
+    /* Slightly smaller for mobile */
   }
 }
 
 .projects-grid {
   display: grid;
-  /* Responsive grid: columns auto-fit to allow minimum 25% width per item */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* Adjusted minmax for better control */
-  grid-gap: 4rem;
+  /* Responsive grid: columns auto-fit to allow minimum 320px width per item, filling available space */
+  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+  /* Dynamic min-width */
+  grid-gap: 3rem;
+  /* Consistent gap between grid items */
   width: 100%;
-  max-width: 1280px;
+  max-width: 128rem;
+  /* Max width for the grid */
   margin: 0 auto;
   margin-bottom: 6rem;
 }
 
 /* Media query for single column layout on very small screens */
-@media (max-width: 490px) {
+@media (max-width: 49rem) {
 
   /* Adjusted breakpoint for grid to ensure single column on smaller phones */
   .projects-section {
@@ -228,57 +355,142 @@ img {
   .projects-grid {
     grid-template-columns: 1fr;
     /* Single column layout */
+    grid-gap: 2.5rem;
+    /* Smaller gap in single column */
   }
 }
 
 /* Individual project tile styles */
 .project {
   background: var(--project-bg-light);
-  /* Use CSS variable */
-  box-shadow: 5px 5px 8px 5px var(--project-shadow);
-  /* Use CSS variable */
-  border-radius: 25px;
+  /* Use CSS variable for background */
+  box-shadow: 0 0.5rem 1.5rem var(--project-shadow);
+  /* More prominent shadow */
+  border-radius: 2.5rem;
+  /* Consistent border-radius */
   overflow: hidden;
   /* Ensures image corners match border-radius */
+  position: relative;
+  /* For pseudo-element glows */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  /* All properties transition */
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+  /* Subtle white border, dynamic thickness */
+}
+
+.project::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2.5rem;
+  /* Match project border-radius */
+  box-shadow: 0 0 0rem var(--glow-strong);
+  /* Initial state: no glow */
+  transition: box-shadow 0.4s ease-out;
+  /* Smooth glow transition */
+  z-index: 1;
+  /* Ensure glow is behind content but visible */
+  pointer-events: none;
+  /* Allows clicks to pass through */
+}
+
+.project:hover {
+  transform: translateY(-0.8rem) scale(1.02);
+  /* Lift and slightly scale */
+  background: rgba(255, 255, 255, 0.15);
+  /* Slightly brighter background on hover */
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.9), 0 0 3rem var(--glow-primary);
+  /* Intense shadow + glow */
+}
+
+.project:hover::before {
+  box-shadow: 0 0 2rem var(--glow-strong),
+    /* Inner pure white glow */
+    0 0 4rem var(--glow-primary),
+    /* Primary color glow */
+    0 0 8rem var(--glow-secondary);
+  /* Secondary color wider glow */
 }
 
 .code {
   color: var(--code-color);
-  /* Use CSS variable */
-  transition: color 0.3s ease-out;
-  /* Smooth transition for code color */
+  /* Use CSS variable for code color */
+  transition: color 0.3s ease-out, text-shadow 0.3s ease-out;
+  /* Smooth transitions */
 }
 
 .project:hover .code {
   color: var(--code-hover-color);
   /* Use CSS variable for hover color */
+  text-shadow: 0 0 0.5rem var(--code-hover-color), 0 0 1rem rgba(255, 127, 80, 0.5);
+  /* Glow for the code text */
 }
 
 .project-image {
   height: calc(100% - 6.8rem);
-  /* Calculate image height */
+  /* Calculate image height dynamically */
   width: 100%;
   object-fit: cover;
   /* Crop image to fit container */
-  border-top-left-radius: 25px;
+  border-top-left-radius: 2.5rem;
   /* Match project border-radius */
-  border-top-right-radius: 25px;
+  border-top-right-radius: 2.5rem;
   /* Match project border-radius */
+  opacity: 0.8;
+  /* Slightly desaturate images */
+  transition: opacity 0.3s ease-out;
+}
+
+.project:hover .project-image {
+  opacity: 1;
+  /* Fully saturate images on hover */
 }
 
 .project-title {
   font-size: 2rem;
   /* Equivalent to 20px */
   padding: 2rem 0.5rem;
-  color: var(--code-color);
-  /* Use CSS variable for text color */
+  color: var(--main-white);
+  /* Ensure title is white */
+  transition: color 0.3s ease;
+}
+
+.project:hover .project-title {
+  color: var(--glow-strong);
+  /* Title text becomes white on hover */
 }
 
 /* Button styles */
 .btn {
   display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 2px;
+  padding: 1.2rem 2.5rem;
+  /* Slightly more padding, dynamic */
+  border-radius: 0.4rem;
+  /* More rounded corners, dynamic */
+  transition: all 0.3s ease;
+  /* Smooth transition for all btn properties */
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  /* Ensures content is above pseudo-element */
+}
+
+/* Keyframes for subtle button glow pulse */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 1rem var(--glow-primary), 0 0 2rem rgba(255, 94, 0, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 2rem var(--glow-primary), 0 0 4rem rgba(255, 94, 0, 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 1rem var(--glow-primary), 0 0 2rem rgba(255, 94, 0, 0.2);
+  }
 }
 
 .btn-show-all {
@@ -286,29 +498,41 @@ img {
   /* Use flexbox for easier centering of content */
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  /* Space between text and icon */
+  gap: 0.8rem;
+  /* Space between text and icon, dynamic */
   font-size: 2rem;
   /* Equivalent to 20px */
-  background: var(--main-gray);
-  /* Use CSS variable */
-  transition: background 0.3s ease-out;
-  /* Smooth background transition */
+  background: var(--main-dark-red);
+  /* Darker base for the button */
+  border: 0.1rem solid var(--main-red);
+  /* Subtle border, dynamic thickness */
+  color: var(--main-white);
+  /* Ensure text is white */
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.5);
+  /* Initial button shadow */
 }
 
 .btn-show-all:hover {
-  background: red;
-  /* Hover background color */
+  background: var(--main-red);
+  /* Base background on hover */
+  color: var(--glow-strong);
+  /* Text glows white */
+  text-shadow: 0 0 0.5rem var(--glow-strong);
+  /* Text shadow for button */
+  border-color: var(--glow-strong);
+  /* Border glows */
+  animation: pulseGlow 1.5s infinite alternate ease-in-out;
+  /* Apply the glow animation */
 }
 
 .btn-show-all:hover>i {
-  transform: translateX(2px);
-  /* Slight icon movement on hover */
+  transform: translateX(0.5rem) scale(1.1);
+  /* More pronounced icon movement and scale */
 }
 
 .btn-show-all>i {
   transform: translateX(0);
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, color 0.3s ease;
   /* Smooth icon transition */
 }
 
@@ -323,21 +547,29 @@ img {
   /* Center content horizontally */
   text-align: center;
   width: 100%;
-  height: 80vh;
+  min-height: 85vh;
+  /* Changed to min-height to allow content to expand if needed */
   padding-top: 2rem;
-  background: rgb(107, 6, 6);
+  background: rgba(10, 0, 0, 0.8);
   /* Specific background color */
+  box-shadow: inset 0 1rem 2rem rgba(0, 0, 0, 0.6), inset 0 -1rem 2rem rgba(0, 0, 0, 0.6);
+  /* Inner shadows */
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  /* Subtle separating line, dynamic thickness */
 }
 
 .contact-section-header>h2 {
   font-size: 6rem;
   /* Equivalent to 60px */
+  text-shadow: 0 0 1rem var(--glow-secondary);
+  /* Header glow */
+  margin-bottom: 1rem;
 }
 
 /* Media query for smaller contact section header on small screens */
-@media (max-width: 460px) {
+@media (max-width: 46rem) {
 
-  /* Using a pixel value for clarity, equivalent to ~28.75em */
+  /* Equivalent to 460px */
   .contact-section-header>h2 {
     font-size: 4rem;
     /* Equivalent to 40px */
@@ -346,75 +578,225 @@ img {
 
 .contact-section-header>p {
   font-style: italic;
+  font-size: 2.2rem;
+  /* Larger and more prominent */
   margin-top: 1rem;
   /* Add some space below the header */
+  color: rgba(255, 255, 255, 0.7);
+  /* Slightly muted white */
 }
 
 .contact-links {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 80vw;
+  max-width: 90vw;
+  /* Dynamic max-width based on viewport width */
   flex-wrap: wrap;
   /* Allow links to wrap to the next line */
-  margin-top: 4rem;
+  margin-top: 5rem;
   /* Space between header and links */
-  gap: 2rem;
-  /* Gap between contact details */
+  gap: 3rem;
+  /* Larger gap between contact details, dynamic */
+}
+
+/* Keyframes for subtle icon bounce */
+@keyframes subtleBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.3rem);
+    /* Adjust bounce height */
+  }
 }
 
 .contact-details {
-  font-size: 2.4rem;
-  /* Equivalent to 24px */
-  text-shadow: 2px 2px 1px var(--main-black);
-  /* Text shadow for better readability */
-  transition: transform 0.3s ease-out;
+  font-size: 2.8rem;
+  /* Equivalent to 28px, larger icons/text */
+  text-shadow: 0.2rem 0.2rem 0.5rem var(--main-black);
+  /* More prominent shadow, dynamic */
+  transition: transform 0.3s ease-out, color 0.3s ease, text-shadow 0.3s ease;
   /* Smooth transform transition on hover */
+  color: var(--main-white);
+  /* Default white */
 }
 
 .contact-details:hover {
-  transform: translateY(8px);
-  /* Lift effect on hover */
+  transform: translateY(-1rem) scale(1.1);
+  /* More lift and slight scale */
+  color: var(--glow-strong);
+  /* Text becomes pure white */
+  text-shadow: 0 0 1rem var(--glow-strong),
+    0 0 2rem var(--glow-primary),
+    0 0 4rem var(--glow-secondary);
+  /* Intense glow */
+}
+
+.contact-details:hover i {
+  animation: subtleBounce 0.5s ease-out;
+  /* Apply bounce animation to the icon on hover */
+}
+
+/* NEW MEDIA QUERIES FOR VERY SMALL SCREENS - Specifically for contact buttons */
+@media (max-width: 60rem) {
+
+  /* Adjust styles for screens up to 600px wide */
+  .contact-links {
+    gap: 2rem;
+    /* Reduce gap between buttons */
+  }
+
+  .contact-details {
+    font-size: 2.4rem;
+    /* Slightly smaller text/icon size */
+    padding: 1rem 2rem;
+    /* Reduce padding slightly */
+  }
+}
+
+@media (max-width: 38rem) {
+
+  /* For even smaller screens, like older phones (380px) */
+  .contact-links {
+    gap: 1.5rem;
+    /* Further reduce gap */
+    max-width: 95vw;
+    /* Allow links to take up more width */
+  }
+
+  .contact-details {
+    font-size: 2rem;
+    /* Further reduce font size */
+    padding: 0.8rem 1.5rem;
+    /* Further reduce padding */
+  }
 }
 
 /* Footer styles */
 footer {
   font-weight: 300;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  /* Start with column for better small screen fit */
+  justify-content: center;
+  /* Center horizontally */
   align-items: center;
-  padding: 2rem;
+  /* Center vertically */
+  padding: 3rem 2rem;
+  /* More padding, dynamic */
   background: var(--main-black);
   /* Use CSS variable */
-  border-top: 4px solid darkblue;
-  color: var(--main-white);
-  /* Ensure text color is white */
+  border-top: 0.4rem solid var(--glow-primary);
+  /* Use glow color for border, dynamic thickness */
+  color: rgba(255, 255, 255, 0.7);
+  /* Ensure text color is muted white */
+  text-align: center;
+  /* Center text */
+  position: relative;
+  box-shadow: inset 0 0.5rem 1.5rem rgba(0, 0, 0, 0.7);
+  /* Inner shadow for depth */
 }
 
 footer>p {
-  margin: 1rem;
-  /* Adjusted margin for consistency */
+  margin: 0.8rem 0;
+  /* Consistent vertical margin, dynamic */
+  font-size: 1.6rem;
+  line-height: 1.5;
 }
 
-footer i {
+footer a {
+  color: var(--glow-secondary);
+  /* Footer links in a secondary glow color */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--glow-strong);
+  /* Pure white on hover */
+  text-shadow: 0 0 0.5rem var(--glow-strong), 0 0 1rem var(--glow-secondary);
+  /* Glow effect */
+}
+
+/* Icon Styling - New and refined */
+i.fas,
+i.fab {
+  margin-right: 0.7rem;
+  /* Space between icon and text, dynamic */
+  transition: transform 0.2s ease-out, color 0.3s ease, text-shadow 0.3s ease;
   vertical-align: middle;
-  /* Align icons with text */
+  /* Align with text */
 }
 
-/* Media query for footer layout on small screens */
-@media (max-width: 460px) {
+/* Specific adjustments for navbar icons */
+.nav-list a i {
+  font-size: 1.8rem;
+  /* Slightly smaller than link text, dynamic */
+  margin-right: 0.5rem;
+}
 
-  /* Using a pixel value for clarity, equivalent to ~28.75em */
+/* Specific adjustments for welcome section icon */
+.welcome-section>p i {
+  font-size: 2.8rem;
+  /* Match paragraph text size, dynamic */
+  margin-right: 1rem;
+  color: inherit;
+  /* Inherit the glow color */
+  text-shadow: inherit;
+  /* Inherit the glow text-shadow */
+}
+
+/* Specific adjustments for project code icons */
+.project-title .code i {
+  font-size: 1.6rem;
+  /* Smaller for integration into code tags, dynamic */
+  margin: 0 0.4rem;
+  /* Tighten spacing around icon, dynamic */
+  color: var(--code-color);
+  /* Match code text color */
+}
+
+.project:hover .project-title .code i {
+  color: var(--code-hover-color);
+  /* Match hover code color */
+  text-shadow: inherit;
+  /* Inherit glow from parent code span */
+}
+
+/* Specific adjustments for contact header icon */
+.contact-section-header>p i {
+  font-size: 2rem;
+  /* Match paragraph text size, dynamic */
+  margin-right: 0.8rem;
+  color: inherit;
+}
+
+/* Specific adjustments for footer icons */
+footer p i {
+  font-size: 1.4rem;
+  /* Slightly smaller than footer text, dynamic */
+  color: inherit;
+  /* Inherit footer link color */
+  margin-right: 0.5rem;
+}
+
+footer a i {
+  margin-right: 0;
+  /* No margin-right for freeCodeCamp icon if it's at the end of the link */
+  margin-left: 0.5rem;
+  /* Only margin-left for freeCodeCamp icon */
+}
+
+/* Media query for footer layout on larger screens (reversing the column stack for wider views) */
+@media (min-width: 46.1rem) {
+
+  /* Equivalent to 461px */
   footer {
-    flex-direction: column;
-    /* Stack footer items vertically */
-    text-align: center;
-  }
-
-  footer>p {
-    margin: 0.5rem;
-    /* Reduce margin on small screens */
+    flex-direction: row;
+    /* Back to row layout on larger screens */
+    justify-content: space-evenly;
   }
 }
-
-/* Removed unused .codepen class */
