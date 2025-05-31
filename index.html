@@ -5,8 +5,16 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mushfiq's Royal Portfolio 👑</title>
+  <title>Mushfiq's Static Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin />
+
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&family=Raleway:wght@700&display=swap"
+    as="style" />
+
   <script src="https://kit.fontawesome.com/bb367858c4.js" crossorigin="anonymous"></script>
+
   <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap" rel="stylesheet" />
 
@@ -18,25 +26,28 @@
 </head>
 
 <body>
-  <nav id="navbar" class="nav">
+  <a class="skip-link screen-reader-text" href="#main-content">Skip to main content</a>
+
+  <nav id="navbar" class="nav" aria-label="Main navigation">
     <ul class="nav-list">
       <li>
-        <a href="#welcome-section"><i class="fas fa-user"></i> About</a>
+        <a href="#welcome-section"><i class="fas fa-user" aria-hidden="true"></i> About</a>
       </li>
       <li>
-        <a href="#projects"><i class="fas fa-laptop-code"></i> Work</a>
+        <a href="#projects"><i class="fas fa-laptop-code" aria-hidden="true"></i> Work</a>
       </li>
       <li>
-        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
       </li>
     </ul>
   </nav>
 
-  <main>
+  <main id="main-content">
     <section id="welcome-section" class="welcome-section">
       <h1 data-aos="fade-down" data-aos-duration="1000">Hey, I'm Mushfiq</h1>
-      <p data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200"><i class="fas fa-code-branch"></i> a
-        Front-End Web Enthusiast ✨</p>
+      <p data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200">
+        <i class="fas fa-code-branch" aria-hidden="true"></i> a Front-End Web Enthusiast ✨
+      </p>
     </section>
 
     <section id="projects" class="projects-section" data-aos="fade-up">
@@ -46,9 +57,9 @@
         <a href="https://mushfiqplabon.github.io/Tribute1Fatih/" target="_blank" rel="noopener noreferrer"
           class="project project-tile" data-aos="fade-up" data-aos-delay="100">
           <img class="project-image" src="https://github.com/MushfiqPlabon/Tribute1Fatih/blob/main/image.png?raw=true"
-            alt="Screenshot of Tribute Page project" />
+            alt="Screenshot of Tribute Page project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             Tribute Page
             <span class="code">&#47;&gt;</span>
           </p>
@@ -57,9 +68,9 @@
         <a href="https://mushfiqplabon.github.io/SurveyForm/" target="_blank" rel="noopener noreferrer"
           class="project project-tile" data-aos="fade-up" data-aos-delay="200">
           <img class="project-image" src="https://github.com/MushfiqPlabon/SurveyForm/blob/main/image.png?raw=true"
-            alt="Screenshot of Sample Survey Form project" />
+            alt="Screenshot of Sample Survey Form project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             Sample Survey Form
             <span class="code">&#47;&gt;</span>
           </p>
@@ -69,9 +80,9 @@
           class="project project-tile" data-aos="fade-up" data-aos-delay="300">
           <img class="project-image"
             src="https://github.com/MushfiqPlabon/backgroundGradient/blob/main/image.png?raw=true"
-            alt="Screenshot of Background Gradient Changer project" />
+            alt="Screenshot of Background Gradient Changer project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             Background Gradient Changer
             <span class="code">&#47;&gt;</span>
           </p>
@@ -80,9 +91,9 @@
         <a href="https://mushfiqplabon.github.io/ShoppingList/" target="_blank" rel="noopener noreferrer"
           class="project project-tile" data-aos="fade-up" data-aos-delay="400">
           <img class="project-image" src="https://github.com/MushfiqPlabon/ShoppingList/blob/main/image.png?raw=true"
-            alt="Screenshot of Simple ShoppingList project" />
+            alt="Screenshot of Simple ShoppingList project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             Simple ShoppingList
             <span class="code">&#47;&gt;</span>
           </p>
@@ -91,9 +102,9 @@
         <a href="https://mushfiqplabon.github.io/CatPhotos/" target="_blank" rel="noopener noreferrer"
           class="project project-tile" data-aos="fade-up" data-aos-delay="500">
           <img class="project-image" src="https://github.com/MushfiqPlabon/CatPhotos/blob/master/image.png?raw=true"
-            alt="Screenshot of CatPhotos project" />
+            alt="Screenshot of CatPhotos project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             CatPhotos
             <span class="code">&#47;&gt;</span>
           </p>
@@ -102,9 +113,9 @@
         <a href="https://mushfiqplabon.github.io/technicalDocJS/" target="_blank" rel="noopener noreferrer"
           class="project project-tile" data-aos="fade-up" data-aos-delay="600">
           <img class="project-image" src="https://github.com/MushfiqPlabon/technicalDocJS/blob/main/image.png?raw=true"
-            alt="Screenshot of JavaScript Documentation project" />
+            alt="Screenshot of JavaScript Documentation project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             JavaScript Docs
             <span class="code">&#47;&gt;</span>
           </p>
@@ -114,49 +125,56 @@
           class="project project-tile" data-aos="fade-up" data-aos-delay="700">
           <img class="project-image"
             src="https://github.com/MushfiqPlabon/BlissLandingPage/blob/main/image.png?raw=true"
-            alt="Screenshot of Bliss Landing Page project" />
+            alt="Screenshot of Bliss Landing Page project" loading="lazy" />
           <p class="project-title">
-            <span class="code">&lt;<i class="fas fa-folder-open"></i></span>
+            <span class="code">&lt;</span><i class="fas fa-folder-open" aria-hidden="true"></i>
             Bliss Landing Page
             <span class="code">&#47;&gt;</span>
           </p>
         </a>
 
         <a href="https://github.com/MushfiqPlabon?tab=repositories" class="btn btn-show-all project-tile"
-          target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="800">Show all on GitHub <i
-            class="fas fa-chevron-right"></i></a>
+          target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="800">
+          Show all on GitHub <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
       </div>
     </section>
 
     <section id="contact" class="contact-section" data-aos="fade-up">
       <div class="contact-section-header">
         <h2>Let's connect and build something amazing! 🤝</h2>
-        <p><i class="fas fa-hands-helping"></i> How may I assist you?</p>
+        <p><i class="fas fa-hands-helping" aria-hidden="true"></i> How may I assist you?</p>
       </div>
       <div class="contact-links">
         <a href="https://www.facebook.com/hellraiser.mrp/" target="_blank" rel="noopener noreferrer"
-          class="btn contact-details" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-facebook-square"></i>
-          Facebook</a>
+          class="btn contact-details" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i> Facebook
+        </a>
         <a id="profile-link" href="https://github.com/MushfiqPlabon/" target="_blank" rel="noopener noreferrer"
-          class="btn contact-details" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-github"></i> GitHub</a>
+          class="btn contact-details" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
         <a href="mailto:rahman.mushfiq2000@gmail.com" class="btn contact-details" data-aos="zoom-in"
-          data-aos-delay="300"><i class="fas fa-at"></i> Send a
-          mail</a>
-        <a href="tel:+8801641879353" class="btn contact-details" data-aos="zoom-in" data-aos-delay="400"><i
-            class="fas fa-mobile-alt"></i> Call me</a>
+          data-aos-delay="300">
+          <i class="fas fa-at" aria-hidden="true"></i> Send a mail
+        </a>
+        <a href="tel:+8801641879353" class="btn contact-details" data-aos="zoom-in" data-aos-delay="400">
+          <i class="fas fa-mobile-alt" aria-hidden="true"></i> Call me
+        </a>
       </div>
     </section>
   </main>
 
   <footer data-aos="fade-up">
     <p>
-      <strong><i class="fas fa-exclamation-circle"></i> Note: This portfolio is currently under development. Projects
-        and contact
-        details are subject to change.</strong>
+      <strong><i class="fas fa-exclamation-circle" aria-hidden="true"></i> Note: This portfolio is currently under
+        development. Projects and contact details are subject to change.</strong>
     </p>
     <p>
-      <i class="fas fa-copyright"></i> Created for
-      <a href="https://www.freecodecamp.com/" target="_blank">freeCodeCamp <i class="fab fa-free-code-camp"></i></a>
+      <i class="fas fa-copyright" aria-hidden="true"></i> Created for
+      <a href="https://www.freecodecamp.com/" target="_blank" rel="noopener noreferrer">
+        freeCodeCamp <i class="fab fa-free-code-camp" aria-hidden="true"></i>
+      </a>
     </p>
   </footer>
 
@@ -173,6 +191,21 @@
     });
   </script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const skipLink = document.querySelector('.skip-link');
+      const mainContent = document.getElementById('main-content');
+
+      if (skipLink && mainContent) {
+        skipLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          mainContent.setAttribute('tabindex', '-1'); // Make main content focusable
+          mainContent.focus(); // Focus the main content
+          mainContent.removeAttribute('tabindex'); // Remove tabindex after focus
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>
