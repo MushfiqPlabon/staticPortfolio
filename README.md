@@ -32,7 +32,7 @@ This portfolio initially began as a **course project for freeCodeCamp**. Since t
 
 You can view the live demo of this portfolio directly in your browser:
 
-[Live Demo](https://mushfiqplabon.github.io/StaticPortfolio/)
+[Live Demo](https://mushfiqplabon.github.io/staticPortfolio/)
 
 ---
 
