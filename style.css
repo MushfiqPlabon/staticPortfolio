@@ -1,28 +1,51 @@
-* {
-  margin: 0;
-  padding: 0;
+:root {
+  /* Define CSS variables for colors to improve maintainability */
+  --main-red: rgb(121, 9, 9);
+  --main-dark-red: rgb(36, 0, 0);
+  --main-gray: gray;
+  --main-black: black;
+  --main-white: white;
+  --project-bg-light: rgba(255, 255, 255, 0.466);
+  --project-shadow: #000000c5;
+  --code-color: rgb(0, 0, 0);
+  --code-hover-color: #ff7f50;
+  --navbar-bg: rgba(0, 0, 0, 0.452);
+  --navbar-text-color: rgba(255, 255, 255, 0.795);
+  --navbar-hover-glow: #49ff18;
 }
 
+/* Universal box-sizing reset */
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
 
+/* Base HTML styles */
 html {
   box-sizing: border-box;
+  /* Set base font-size for rem units (1rem = 10px) */
   font-size: 62.5%;
   scroll-behavior: smooth;
+  /* Smooth scrolling for anchor links */
 }
 
+/* Body styles */
 body {
   font-family: "Poppins", sans-serif;
   font-size: 1.8rem;
+  /* Equivalent to 18px */
   font-weight: 400;
   line-height: 1.4;
-  color: white;
+  color: var(--main-white);
+  /* Use CSS variable */
+  margin: 0;
+  /* Remove default body margin */
+  padding: 0;
+  /* Remove default body padding */
 }
 
+/* Heading styles */
 h1,
 h2 {
   font-family: "Raleway", sans-serif;
@@ -32,71 +55,96 @@ h2 {
 
 h1 {
   font-size: 6rem;
+  /* Equivalent to 60px */
 }
 
 h2 {
   font-size: 4.2rem;
+  /* Equivalent to 42px */
 }
 
+/* List and link resets */
 ul {
   list-style: none;
+  /* Remove bullet points from lists */
 }
 
 a {
   text-decoration: none;
-  color: white;
+  /* Remove underline from links */
+  color: var(--main-white);
+  /* Use CSS variable */
 }
 
+/* Image styles */
 img {
   display: block;
+  /* Remove extra space below images */
   width: 100%;
 }
 
+/* Navigation bar styles */
 .nav {
   display: grid;
   place-items: center;
+  /* Center content both horizontally and vertically */
   position: fixed;
-  text-align: center;
+  /* Fix navigation to the top */
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.452);
+  background: var(--navbar-bg);
+  /* Use CSS variable */
   backdrop-filter: blur(10px) invert(5%);
+  /* Frosted glass effect */
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
-  -webkit-box-shadow: 5px 5px 50px 5px rgba(0, 0, 0, 0.78);
   box-shadow: 5px 5px 50px 5px rgba(0, 0, 0, 0.78);
+  /* Consistent box shadow */
   z-index: 10;
+  /* Ensure nav is above other content */
 }
 
 .nav-list {
-  display: inline-flex;
+  display: flex;
+  /* Use flexbox for navigation items */
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  /* Center items horizontally */
   align-items: center;
-  align-self: space-around;
+  /* align-self: center; is not needed here as flex container handles alignment */
 }
 
 .nav-list a {
   display: block;
   font-size: 2.2rem;
+  /* Equivalent to 22px */
   padding: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  color: rgba(255, 255, 255, 0.795);
+  /* Consistent padding */
+  color: var(--navbar-text-color);
+  /* Use CSS variable */
+  /* margin-left: auto; margin-right: auto; is not needed for flex items centered by justify-content */
 }
 
 .nav-list a:hover {
-  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18,
-    0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
+  text-shadow: 0 0 5px var(--main-white), 0 0 10px var(--main-white),
+    0 0 15px var(--main-white), 0 0 20px var(--navbar-hover-glow),
+    0 0 30px var(--navbar-hover-glow), 0 0 40px var(--navbar-hover-glow),
+    0 0 55px var(--navbar-hover-glow), 0 0 75px var(--navbar-hover-glow);
   border-radius: 40px;
 }
 
-@media (max-width: 28.75em) {
+/* Media query for smaller navigation on small screens */
+@media (max-width: 460px) {
+
+  /* Using a pixel value for clarity, equivalent to ~28.75em */
   .nav {
     justify-content: center;
+    /* Ensure nav items remain centered */
   }
 }
+
+/* Welcome section styles */
 .welcome-section {
   display: flex;
   flex-direction: column;
@@ -105,58 +153,63 @@ img {
   text-align: center;
   width: 100%;
   height: 100vh;
-  background: rgb(36, 0, 0);
-  background: -moz-linear-gradient(
-    6deg,
-    rgba(36, 0, 0, 1) 0%,
-    rgba(121, 9, 9, 1) 100%,
-    rgba(210, 65, 204, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    6deg,
-    rgba(36, 0, 0, 1) 0%,
-    rgba(121, 9, 9, 1) 100%,
-    rgba(210, 65, 204, 1) 100%
-  );
-  background: linear-gradient(
-    6deg,
-    rgba(36, 0, 0, 1) 0%,
-    rgba(121, 9, 9, 1) 100%,
-    rgba(210, 65, 204, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#240000", endColorstr="#d241cc", GradientType=1);
+  /* Full viewport height */
+  /* Using standard linear-gradient for modern browsers and variables */
+  background: linear-gradient(6deg,
+      var(--main-dark-red) 0%,
+      var(--main-red) 100%);
+  /* Fallbacks for older browsers, although modern approach is preferred */
+  background: -moz-linear-gradient(6deg,
+      rgba(36, 0, 0, 1) 0%,
+      rgba(121, 9, 9, 1) 100%);
+  background: -webkit-linear-gradient(6deg,
+      rgba(36, 0, 0, 1) 0%,
+      rgba(121, 9, 9, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#240000", endColorstr="#790909", GradientType=1);
 }
 
-.welcome-section > p {
+.welcome-section>p {
   font-size: 3rem;
+  /* Equivalent to 30px */
   font-weight: 200;
   font-style: italic;
   color: red;
+  /* Specific color for this text */
 }
 
+/* Projects section styles */
 .projects-section {
   text-align: center;
   padding: 10rem 2rem;
-  background: var(--main-blue);
+  /* Removed var(--main-blue) as it was undefined. Assuming background should be something specific or related to the overall theme. */
+  /* Consider a subtle background color or gradient if needed */
+  background-color: #333;
+  /* Example fallback if no variable is defined */
 }
 
 .projects-section-header {
   max-width: 50vw;
   margin: 0 auto 6rem auto;
   border-bottom: 0.2rem solid red;
-  color: black;
+  color: var(--main-black);
+  /* Text color set to black */
 }
 
-@media (max-width: 28.75em) {
+/* Media query for smaller project section header on small screens */
+@media (max-width: 460px) {
+
+  /* Using a pixel value for clarity, equivalent to ~28.75em */
   .projects-section-header {
     font-size: 4rem;
+    /* Equivalent to 40px */
   }
 }
 
 .projects-grid {
   display: grid;
-  place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+  /* Responsive grid: columns auto-fit to allow minimum 25% width per item */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Adjusted minmax for better control */
   grid-gap: 4rem;
   width: 100%;
   max-width: 1280px;
@@ -164,44 +217,64 @@ img {
   margin-bottom: 6rem;
 }
 
-@media (max-width: 30.625em) {
+/* Media query for single column layout on very small screens */
+@media (max-width: 490px) {
+
+  /* Adjusted breakpoint for grid to ensure single column on smaller phones */
   .projects-section {
     padding: 6rem 1rem;
   }
 
   .projects-grid {
     grid-template-columns: 1fr;
+    /* Single column layout */
   }
 }
 
+/* Individual project tile styles */
 .project {
-  background: rgba(255, 255, 255, 0.466);
-  -webkit-box-shadow: 5px 5px 8px 5px #000000;
-  box-shadow: 5px 5px 8px 5px #000000c5;
+  background: var(--project-bg-light);
+  /* Use CSS variable */
+  box-shadow: 5px 5px 8px 5px var(--project-shadow);
+  /* Use CSS variable */
   border-radius: 25px;
+  overflow: hidden;
+  /* Ensures image corners match border-radius */
 }
 
 .code {
-  color: rgb(0, 0, 0);
+  color: var(--code-color);
+  /* Use CSS variable */
   transition: color 0.3s ease-out;
+  /* Smooth transition for code color */
 }
 
 .project:hover .code {
-  color: #ff7f50;
+  color: var(--code-hover-color);
+  /* Use CSS variable for hover color */
 }
 
 .project-image {
   height: calc(100% - 6.8rem);
+  /* Calculate image height */
   width: 100%;
   object-fit: cover;
+  /* Crop image to fit container */
+  border-top-left-radius: 25px;
+  /* Match project border-radius */
+  border-top-right-radius: 25px;
+  /* Match project border-radius */
 }
 
 .project-title {
   font-size: 2rem;
+  /* Equivalent to 20px */
   padding: 2rem 0.5rem;
-  color: rgb(0, 0, 0);
+  color: var(--code-color);
+  /* Use CSS variable for text color */
 }
 
+/* Button styles */
 .btn {
   display: inline-block;
   padding: 1rem 2rem;
@@ -209,50 +282,72 @@ img {
 }
 
 .btn-show-all {
-  display: grid;
-  place-items: center;
+  display: flex;
+  /* Use flexbox for easier centering of content */
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  /* Space between text and icon */
   font-size: 2rem;
-  background: gray;
+  /* Equivalent to 20px */
+  background: var(--main-gray);
+  /* Use CSS variable */
   transition: background 0.3s ease-out;
+  /* Smooth background transition */
 }
 
 .btn-show-all:hover {
   background: red;
+  /* Hover background color */
 }
 
-.btn-show-all:hover > i {
+.btn-show-all:hover>i {
   transform: translateX(2px);
+  /* Slight icon movement on hover */
 }
 
-.btn-show-all > i {
+.btn-show-all>i {
   transform: translateX(0);
   transition: transform 0.3s ease-out;
+  /* Smooth icon transition */
 }
 
+/* Contact section styles */
 .contact-section {
-  display: inline-flex;
+  display: flex;
+  /* Changed to flex for better control over content alignment */
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  /* Center content vertically */
   align-items: center;
+  /* Center content horizontally */
   text-align: center;
   width: 100%;
   height: 80vh;
-  padding-top:2rem;
+  padding-top: 2rem;
   background: rgb(107, 6, 6);
+  /* Specific background color */
 }
 
-.contact-section-header > h2 {
+.contact-section-header>h2 {
   font-size: 6rem;
+  /* Equivalent to 60px */
 }
 
-@media (max-width: 28.75em) {
-  .contact-section-header > h2 {
+/* Media query for smaller contact section header on small screens */
+@media (max-width: 460px) {
+
+  /* Using a pixel value for clarity, equivalent to ~28.75em */
+  .contact-section-header>h2 {
     font-size: 4rem;
+    /* Equivalent to 40px */
   }
 }
 
-.contact-section-header > p {
+.contact-section-header>p {
   font-style: italic;
+  margin-top: 1rem;
+  /* Add some space below the header */
 }
 
 .contact-links {
@@ -261,44 +356,65 @@ img {
   width: 100%;
   max-width: 80vw;
   flex-wrap: wrap;
+  /* Allow links to wrap to the next line */
+  margin-top: 4rem;
+  /* Space between header and links */
+  gap: 2rem;
+  /* Gap between contact details */
 }
 
 .contact-details {
   font-size: 2.4rem;
-  text-shadow: 2px 2px 1px #000000;
+  /* Equivalent to 24px */
+  text-shadow: 2px 2px 1px var(--main-black);
+  /* Text shadow for better readability */
   transition: transform 0.3s ease-out;
+  /* Smooth transform transition on hover */
 }
 
 .contact-details:hover {
   transform: translateY(8px);
+  /* Lift effect on hover */
 }
 
+/* Footer styles */
 footer {
   font-weight: 300;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  align-self: center;
   padding: 2rem;
-  background: black;
+  background: var(--main-black);
+  /* Use CSS variable */
   border-top: 4px solid darkblue;
+  color: var(--main-white);
+  /* Ensure text color is white */
 }
 
-footer > p {
-  margin: 2rem;
+footer>p {
+  margin: 1rem;
+  /* Adjusted margin for consistency */
 }
 
 footer i {
   vertical-align: middle;
+  /* Align icons with text */
 }
 
-@media (max-width: 28.75em) {
+/* Media query for footer layout on small screens */
+@media (max-width: 460px) {
+
+  /* Using a pixel value for clarity, equivalent to ~28.75em */
   footer {
     flex-direction: column;
+    /* Stack footer items vertically */
     text-align: center;
+  }
+
+  footer>p {
+    margin: 0.5rem;
+    /* Reduce margin on small screens */
   }
 }
 
-.codepen {
-  text-decoration: underline;
-}
+/* Removed unused .codepen class */
