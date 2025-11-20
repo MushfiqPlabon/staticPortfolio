@@ -4,7 +4,7 @@ Welcome to the GitHub repository for my personal static portfolio! This project 
 
 ## About This Project
 
-This portfolio initially began as a **course project for freeCodeCamp**. Since then, I've continuously refined it with a keen focus on **simple aesthetics** and **clean code**. Think of this as my personal sandbox – a space where I **play around and experiment** with front-end technologies and design ideas.
+This portfolio serves as a concise showcase of my foundational front-end development work, demonstrating my skills through a couple of initial projects. It began as a **course project for freeCodeCamp** and has evolved into a personal sandbox where I **experiment with modern front-end technologies** and design concepts, focusing on **simple aesthetics** and **clean code**.
 
 **Please Note for Recruiters:** This portfolio is not intended to be a representation of my final, professional work. It exists primarily for my personal exploration and learning. For my latest and most polished projects, please refer to the links in the "Contact" section of the portfolio itself, or reach out directly for more relevant work samples.
 
