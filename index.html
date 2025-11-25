@@ -5,27 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mushfiqur Rahman Plaban - Portfolio</title>
-
-  <!-- AOS CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/bb367858c4.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   
-  <!-- Simple Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-icons-font@latest/font/simple-icons.min.css" />
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 
   <!-- Main app (ES Module) -->
-  <script type="module" src="app.js"></script>
+  <script type="module" src="main.js"></script>
 </head>
 <body>
-  <svg style="position: absolute; width: 0; height: 0;">
-    <defs>
-      <filter id="blur-filter">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
-      </filter>
-    </defs>
-  </svg>
+  <canvas id="smokey-fluid-canvas"></canvas>
   <div id="root"></div>
 </body>
 </html>

@@ -1,23 +1,26 @@
 import { html } from 'https://esm.sh/htm@3/preact';
 import clsx from 'https://esm.sh/clsx@2';
 import { BaseComponent } from './Base.js';
-import { MobileDetector } from '../services/index.js';
-import { CONFIG } from '../config.js';
+import { MobileDetectorService } from '../services/MobileDetectorService.js';
 
 export class Nav extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false, isMobile: MobileDetector.isMobile() };
+    this.config = props.config;
+    this.mobileDetector = new MobileDetectorService(this.config);
+    this.state = { isOpen: false, isMobile: this.mobileDetector.isMobile() };
     this.toggle = this.toggle.bind(this);
     this.handleResize = this.handleResize.bind(this);
+    this.handleNavClick = this.handleNavClick.bind(this);
   }
 
   componentDidMount() {
-    MobileDetector.onChange(this.handleResize);
+    this.mobileDetector.onChange(this.handleResize);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.isOpen !== this.state.isOpen || nextState.isMobile !== this.state.isMobile;
+    return nextState.isOpen !== this.state.isOpen || 
+           nextState.isMobile !== this.state.isMobile;
   }
 
   handleResize(e) {
@@ -25,7 +28,17 @@ export class Nav extends BaseComponent {
   }
 
   toggle() {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  }
+
+  handleNavClick(e) {
+    e.preventDefault();
+    const id = e.currentTarget.getAttribute('href').substring(1);
+    this.props.onNavClick(id);
+
+    if (this.state.isMobile) {
+      this.toggle();
+    }
   }
 
   render() {
@@ -38,13 +51,13 @@ export class Nav extends BaseComponent {
             aria-expanded=${this.state.isOpen}
             onClick=${this.toggle}
           >
-            <i class=${clsx('fas', this.state.isOpen ? CONFIG.css.faTimes : CONFIG.css.faBars)}></i>
+            <i class=${clsx('fas', this.state.isOpen ? this.config.css.faTimes : this.config.css.faBars)}></i>
           </button>
         `}
-        <ul class=${clsx('nav-list', this.state.isMobile && !this.state.isOpen && CONFIG.css.hiddenClass)}>
-          ${CONFIG.components.nav.sections.map(s => html`
+        <ul class=${clsx('nav-list', this.state.isMobile && !this.state.isOpen && 'hidden')}>
+          ${this.config.components.nav.sections.map(s => html`
             <li key=${s.id}>
-              <a href="#${s.id}" onClick=${this.state.isMobile ? this.toggle : null}>
+              <a href="#${s.id}" onClick=${this.handleNavClick}>
                 <i class="${s.icon}" aria-hidden="true"></i> ${s.label}
               </a>
             </li>

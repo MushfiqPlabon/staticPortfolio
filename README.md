@@ -1,30 +1,40 @@
-# Mushfiq's Static Portfolio
+# Modern Static Portfolio
 
-Welcome to the GitHub repository for my personal static portfolio! This project showcases my journey and experiments as a front-end web enthusiast.
+Welcome to the repository for my personal static portfolio. This project, which started as a simple course assignment, has evolved into a sophisticated, high-performance showcase of modern web development techniques, built without the overhead of a major framework CLI.
 
 ## About This Project
 
-This portfolio serves as a concise showcase of my foundational front-end development work, demonstrating my skills through a couple of initial projects. It began as a **course project for freeCodeCamp** and has evolved into a personal sandbox where I **experiment with modern front-end technologies** and design concepts, focusing on **simple aesthetics** and **clean code**.
+This portfolio demonstrates a modern, component-based architecture using vanilla JavaScript, Preact, and a service-oriented design. The application is fully data-driven, with all content, from project details to UI configuration, managed in centralized data and config files.
 
-**Please Note for Recruiters:** This portfolio is not intended to be a representation of my final, professional work. It exists primarily for my personal exploration and learning. For my latest and most polished projects, please refer to the links in the "Contact" section of the portfolio itself, or reach out directly for more relevant work samples.
+It serves as both a personal showcase and a sandbox for experimenting with performance optimization, clean code, and advanced front-end patterns.
 
----
-
-## Technologies Used
-
-- **HTML5:** For semantic structure and content organization.
-- **CSS3:** Featuring custom properties (CSS variables), responsive design with media queries, and subtle animations for a modern look and feel.
-- **Font Awesome:** For scalable vector icons.
-- **AOS (Animate On Scroll) Library:** To add elegant scroll animations.
+**Please Note:** This project prioritizes architectural purity and performance experimentation. For my latest professional work, please refer to the links within the portfolio itself.
 
 ---
 
 ## Key Features
 
-- **Responsive Design:** Adapts seamlessly across various device sizes.
-- **Accessibility Focused:** Includes features like a "skip to main content" link, `aria` attributes, and a preference for reduced motion.
-- **Modern Aesthetics:** Clean, minimalist design with subtle glow effects and smooth transitions.
-- **Semantic Structure:** Built with HTML5 best practices for better understanding and maintainability.
+- **Component-Based Architecture:** Built with Preact and HTM for a modern, reusable UI structure.
+- **Service-Oriented Design:** Logic is decoupled into dedicated services for concerns like asset loading, data fetching, and animations.
+- **Data-Driven Content:** All text, project data, and configurations are externalized into `*.json` and `*.js` files, allowing for easy updates without touching the application logic.
+- **High-Performance Animations:** Uses GSAP (GreenSock Animation Platform) and ScrollTrigger for smooth, efficient animations.
+- **Lazy Loading:** Page sections and images are lazy-loaded using `lozad.js` to ensure a fast initial page load.
+- **Styling with CSS-in-JS:** All styles are generated programmatically using `goober` for a dynamic and maintainable styling system.
+- **Schema-Validated Data:** Uses `zod` to validate all incoming data from JSON, ensuring data integrity and preventing runtime errors.
+- **Responsive & Accessible:** Designed to work across all device sizes with accessibility features like ARIA attributes and reduced motion preferences.
+
+---
+
+## Technologies Used
+
+- **Core:** HTML5, CSS3, JavaScript (ES Modules)
+- **UI Rendering:** [Preact](https://preactjs.com/) (a fast 3kB alternative to React) with [HTM](https://github.com/developit/htm) (JSX-like syntax in template literals).
+- **Styling:** [goober](https://github.com/cristianbote/goober) (a lightweight CSS-in-JS library).
+- **Animation:** [GSAP (GreenSock)](https://gsap.com/) with the [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) plugin.
+- **Data Validation:** [Zod](https://zod.dev/) for schema validation.
+- **Lazy Loading:** [lozad.js](https://github.com/ApoorvSaxena/lozad.js) for performant lazy-loading of elements.
+- **Icons:** [Font Awesome](https://fontawesome.com/) and [Simple Icons](https://simpleicons.org/).
+- **Utilities:** [clsx](https://github.com/lukeed/clsx) for constructing class names.
 
 ---
 
@@ -38,31 +48,21 @@ You can view the live demo of this portfolio directly in your browser:
 
 ## Getting Started (for Developers)
 
-If you'd like to explore the code or even use it as a starting point for your own experiments, here's how you can get a copy:
+This project requires **no build step**.
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/MushfiqPlabon/StaticPortfolio.git](https://github.com/MushfiqPlabon/StaticPortfolio.git)
+    git clone https://github.com/MushfiqPlabon/StaticPortfolio.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
     cd StaticPortfolio
     ```
 3.  **Open `index.html` in your browser:**
-    You can simply double-click the `index.html` file, or open it via your code editor's live server extension (like Live Server for VS Code).
-
----
-
-## Contribution
-
-While this is a personal project, I'm always open to feedback or suggestions. If you find any issues or have ideas for improvement, feel free to open an issue or a pull request.
+    For the best development experience, use a live server extension (like Live Server for VS Code) to get hot-reloading.
 
 ---
 
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Thank you for visiting!
