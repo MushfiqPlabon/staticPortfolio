@@ -1,8 +1,13 @@
 import { html } from 'https://esm.sh/htm@3/preact';
 import { BaseComponent } from './Base.js';
-import { CONFIG } from '../config.js';
+import { SkillIconService } from '../services/SkillIconService.js'; // Import SkillIconService
 
 export class ProjectCard extends BaseComponent {
+  constructor(props) {
+    super(props);
+    this.skillIconService = new SkillIconService(props.config); // Instantiate SkillIconService
+  }
+
   shouldComponentUpdate(nextProps) {
     return nextProps.project !== this.props.project;
   }
@@ -12,9 +17,10 @@ export class ProjectCard extends BaseComponent {
   }
 
   render() {
-    const { title, stack, description, imageUrl, imageAlt, links } = this.props.project;
+    const { project, config } = this.props;
+    const { title, stack, description, imageUrl, imageAlt, links } = project;
     const techBadges = stack.split(',').map(t => t.trim());
-    const cfg = CONFIG.components.projectCard;
+    const cfg = config.components.projectCard;
 
     return html`
       <article class="project-card">
@@ -26,7 +32,7 @@ export class ProjectCard extends BaseComponent {
           <div class="tech-badges">
             ${techBadges.map(tech => html`
               <span key=${tech} class="tech-badge">
-                <i class="${this.getSkillIcon(tech)}" aria-hidden="true"></i> ${tech}
+                <i class="${this.skillIconService.getSkillIcon(tech)}" aria-hidden="true"></i> ${tech}
               </span>
             `)}
           </div>
