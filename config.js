@@ -309,7 +309,7 @@ export const RAW_CONFIG = {
       sections: [
         { id: 'welcome-section', icon: 'fas fa-user', label: 'About' },
         { id: 'projects-section', icon: 'fas fa-laptop-code', label: 'Projects' },
-        { id: 'skills-section', icon: 'fas fa-lightbulb', label: 'Skills' },
+        { id: 'skills-section', icon: 'fas fa-lightbulb', label: 'Projects' },
         { id: 'experience-section', icon: 'fas fa-briefcase', label: 'Experience' },
         { id: 'education-section', icon: 'fas fa-graduation-cap', label: 'Education' },
         { id: 'certifications-section', icon: 'fas fa-certificate', label: 'Certifications' },
@@ -351,7 +351,7 @@ export const RAW_CONFIG = {
       cta: {
         primary: { href: 'https://github.com/MushfiqPlabon', icon: 'si si-github', label: 'View My Work', external: true },
         secondary: { href: '#contact-section', icon: 'fas fa-envelope', label: 'Get In Touch' },
-        resume: { href: 'https://docs.google.com/document/d/1QuHbedpuQ3LvRiTPm-nr7FEKeT8ahu9LG0uJEYhEkPs/edit?usp=sharing', icon: 'si si-googledocs', label: 'View Resume', external: true }
+        resume: { href: 'https://docs.google.com/document/d/1zG87LK52AjDRVfxoi5SV3BS2EB4pGb0NbNxftwPbQ_Y/edit?usp=sharing', icon: 'si si-googledocs', label: 'View Resume', external: true }
       }
     }
   },
