@@ -10,6 +10,7 @@ export class App extends Component {
     super(props);
     this.config = props.config;
     this.validatedData = props.validatedData;
+    this.featureDetection = props.featureDetection;
 
     this.state = {
       hasError: false,
@@ -27,7 +28,7 @@ export class App extends Component {
     this.markSectionAsRendered = this.markSectionAsRendered.bind(this);
     this.handleNavClick = this.handleNavClick.bind(this);
     this.animationController = new GsapAnimationController();
-    this.lazyLoader = new LozadLazyLoader(this.markSectionAsRendered);
+    this.lazyLoader = new LozadLazyLoader(this.markSectionAsRendered, this.featureDetection);
   }
 
   handleNavClick(sectionId) {
@@ -141,7 +142,7 @@ export class App extends Component {
   render() {
     if (this.state.hasError) {
       const safeMessage = String(this.state.error?.message || this.props.config.errors.unknownError);
-      return html`<${ErrorBoundary} title=${this.props.config.errors.componentError} message=${safeMessage} />`;
+      return html`<${ErrorBoundary} title=${this.props.config.errors.componentError} message=${safeMessage} config=${this.props.config} />`;
     }
 
     const { validatedData, config } = this.props;

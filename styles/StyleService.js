@@ -179,4 +179,4 @@ class StyleService {
   }
 }
 
-export const Styles = new StyleService();
+export { StyleService };

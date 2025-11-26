@@ -1,9 +1,23 @@
 export const RAW_CONFIG = {
   assets: {
-    fontAwesomeKit: 'https://kit.fontawesome.com/bb367858c4.js',
-    simpleIconsCSS: 'https://cdn.jsdelivr.net/npm/simple-icons-font@latest/font/simple-icons.min.css',
+    fontAwesomeKit: {
+      primary: 'https://kit.fontawesome.com/bb367858c4.js',
+      fallback: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js'
+    },
+    simpleIconsCSS: {
+      primary: 'https://cdn.jsdelivr.net/npm/simple-icons-font@latest/font/simple-icons.min.css',
+      fallback: 'https://unpkg.com/simple-icons-font@latest/font/simple-icons.min.css'
+    },
+    gsapCDN: {
+      primary: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
+      fallback: 'https://unpkg.com/gsap@3.12.5/dist/gsap.min.js'
+    },
+    gsapScrollTrigger: {
+      primary: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
+      fallback: 'https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js'
+    }
   },
-  colors: { mainRed: 'rgb(121, 9, 9)', mainDarkRed: 'rgb(36, 0, 0)', mainBlack: 'black', mainWhite: 'white', glowPrimary: '#ff5e00', glowSecondary: '#00eeff', glowStrong: '#fff', projectBgLight: 'rgba(0, 0, 0, 0.6)', projectBgHover: 'rgba(255, 94, 0, 0.2)', projectShadow: '#000000e0', codeColor: 'rgba(255, 255, 255, 0.7)', codeHover: '#ff7f50', navbarBg: 'rgba(0, 0, 0, 0.3)', navbarText: 'rgba(255, 255, 255, 0.85)', borderLight: 'rgba(255, 94, 0, 0.3)', borderHover: 'rgba(255, 94, 0, 0.8)', textMuted: 'rgba(255, 255, 255, 0.7)', bgDark: 'rgba(10, 0, 0, 0.95)', bgSection: 'rgba(0, 0, 0, 0.8)', glassShine: 'rgba(255, 94, 0, 0.15)', glassShineHover: 'rgba(255, 94, 0, 0.3)', glassShineButton: 'rgba(255, 94, 0, 0.3)', glassOrange: 'rgba(255, 94, 0, 0.4)', glowPrimaryFade: 'rgba(255, 94, 0, 0.2)', glowPrimaryMedium: 'rgba(255, 94, 0, 0.5)', glowPrimaryStrong: 'rgba(255, 94, 0, 0.6)', glassBorder: 'rgba(255, 255, 255, 0.18)', transparent: 'transparent' },
+  colors: { mainRed: 'rgb(121, 9, 9)', mainDarkRed: 'rgb(36, 0, 0)', mainBlack: 'black', mainWhite: 'white', white: '#ffffff', glowPrimary: '#ff5e00', glowSecondary: '#00eeff', glowStrong: '#fff', projectBgLight: 'rgba(0, 0, 0, 0.6)', projectBgHover: 'rgba(255, 94, 0, 0.2)', projectShadow: '#000000e0', codeColor: 'rgba(255, 255, 255, 0.7)', codeHover: '#ff7f50', navbarBg: 'rgba(0, 0, 0, 0.3)', navbarText: 'rgba(255, 255, 255, 0.85)', borderLight: 'rgba(255, 94, 0, 0.3)', borderHover: 'rgba(255, 94, 0, 0.8)', error: '#ff4444', errorBg: '#100', errorBorder: '#ff4444', textMuted: '#888', textMuted: 'rgba(255, 255, 255, 0.7)', bgDark: 'rgba(10, 0, 0, 0.95)', bgSection: 'rgba(0, 0, 0, 0.8)', glassShine: 'rgba(255, 94, 0, 0.15)', glassShineHover: 'rgba(255, 94, 0, 0.3)', glassShineButton: 'rgba(255, 94, 0, 0.3)', glassOrange: 'rgba(255, 94, 0, 0.4)', glowPrimaryFade: 'rgba(255, 94, 0, 0.2)', glowPrimaryMedium: 'rgba(255, 94, 0, 0.5)', glowPrimaryStrong: 'rgba(255, 94, 0, 0.6)', glassBorder: 'rgba(255, 255, 255, 0.18)', transparent: 'transparent' },
   spacing: { xs: '0.5rem', sm: '1rem', md: '2rem', lg: '3rem', xl: '4rem', xxl: '6rem', navVertical: '2rem' },
   fonts: { base: '1.6rem', sm: '1.4rem', md: '1.8rem', lg: '2rem', xl: '2.4rem', xxl: '2.8rem', h2: '3.2rem', h2Small: '2.8rem', h1: '4rem', h1Small: '3.2rem', navBase: '1.6rem', navSmall: '1.4rem' },
   layout: { navHeight: '7rem', navHeightSmall: '5rem', maxWidth: '120rem', projectMinWidth: '28rem' },
@@ -309,7 +323,7 @@ export const RAW_CONFIG = {
       sections: [
         { id: 'welcome-section', icon: 'fas fa-user', label: 'About' },
         { id: 'projects-section', icon: 'fas fa-laptop-code', label: 'Projects' },
-        { id: 'skills-section', icon: 'fas fa-lightbulb', label: 'Projects' },
+        { id: 'skills-section', icon: 'fas fa-lightbulb', label: 'Skills' },
         { id: 'experience-section', icon: 'fas fa-briefcase', label: 'Experience' },
         { id: 'education-section', icon: 'fas fa-graduation-cap', label: 'Education' },
         { id: 'certifications-section', icon: 'fas fa-certificate', label: 'Certifications' },
@@ -353,6 +367,15 @@ export const RAW_CONFIG = {
         secondary: { href: '#contact-section', icon: 'fas fa-envelope', label: 'Get In Touch' },
         resume: { href: 'https://docs.google.com/document/d/1zG87LK52AjDRVfxoi5SV3BS2EB4pGb0NbNxftwPbQ_Y/edit?usp=sharing', icon: 'si si-googledocs', label: 'View Resume', external: true }
       }
+    },
+    errorBoundary: {
+      containerPadding: '2rem',
+      containerBorderRadius: '1rem',
+      titleFontSize: '2.4rem',
+      titleMarginBottom: '1rem',
+      messageFontSize: '1.4rem',
+      messageMarginBottom: '2rem',
+      buttonPadding: '1rem 2rem'
     }
   },
   errors: {
@@ -367,6 +390,10 @@ export const RAW_CONFIG = {
     animatorRefreshFailed: 'Animator refresh failed:',
     callbackRequired: 'Callback must be a function',
     interactiveEffectsInitFailed: 'InteractiveEffects initialization failed:'
+  },
+  errorTracking: {
+    enabled: true,
+    endpoint: null
   },
   scroll: {
     throttleLimit: 100,

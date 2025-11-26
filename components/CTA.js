@@ -3,6 +3,20 @@ import { BaseComponent } from './Base.js';
 import { Button } from './Button.js';
 
 export class CTA extends BaseComponent {
+  shouldComponentUpdate(nextProps) {
+    const currentCta = this.props.config.components.hero.cta;
+    const nextCta = nextProps.config.components.hero.cta;
+    
+    return (
+      currentCta.primary.href !== nextCta.primary.href ||
+      currentCta.primary.label !== nextCta.primary.label ||
+      currentCta.secondary.href !== nextCta.secondary.href ||
+      currentCta.secondary.label !== nextCta.secondary.label ||
+      currentCta.resume.href !== nextCta.resume.href ||
+      currentCta.resume.label !== nextCta.resume.label
+    );
+  }
+
   render() {
     const { primary, secondary, resume } = this.props.config.components.hero.cta;
 
