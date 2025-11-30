@@ -8,21 +8,43 @@ interface FooterProps {
   config: Config;
 }
 
-export class Footer extends BaseComponent<FooterProps> {
-  shouldComponentUpdate(nextProps: FooterProps): boolean {
-    return nextProps.profile !== this.props.profile;
+interface FooterState {
+  socialLinks: Array<{ key: string; icon: string; label: string; optional?: boolean; prefix?: string }>;
+}
+
+export class Footer extends BaseComponent<FooterProps, FooterState> {
+  constructor(props: FooterProps) {
+    super(props);
+    this.state = {
+      socialLinks: this.filterSocialLinks(props.profile.contact, props.config),
+    };
+  }
+
+  filterSocialLinks(contact: typeof this.props.profile.contact, config: Config) {
+    return config.components.contact.links.filter(
+      (l) =>
+        !l.optional ||
+        (contact[l.key as keyof typeof contact] !== undefined &&
+          contact[l.key as keyof typeof contact] !== null),
+    );
+  }
+
+  shouldComponentUpdate(nextProps: FooterProps, nextState: FooterState): boolean {
+    if (nextProps.profile !== this.props.profile) {
+      const newLinks = this.filterSocialLinks(nextProps.profile.contact, nextProps.config);
+      if (JSON.stringify(newLinks) !== JSON.stringify(this.state.socialLinks)) {
+        this.setState({ socialLinks: newLinks });
+        return true;
+      }
+    }
+    return this.state.socialLinks !== nextState.socialLinks;
   }
 
   render(): JSX.Element {
     const { profile, config } = this.props;
     const { name, contact } = profile;
     const navSections = config.components.nav.sections;
-    const socialLinks = config.components.contact.links.filter(
-      (l) =>
-        !l.optional ||
-        (contact[l.key as keyof typeof contact] !== undefined &&
-          contact[l.key as keyof typeof contact] !== null),
-    );
+    const { socialLinks } = this.state;
     const footerLabels = config.components.footer.sections;
 
     return html`

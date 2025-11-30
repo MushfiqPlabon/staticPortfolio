@@ -20,7 +20,7 @@ export class ErrorTrackingService {
   constructor(config: Config) {
     this.config = config;
     this.errors = [];
-    this.maxErrors = 100;
+    this.maxErrors = this.config.errorTracking.maxErrors;
   }
 
   init(): void {
@@ -51,8 +51,6 @@ export class ErrorTrackingService {
         });
       },
     );
-
-    console.log("Error Tracking Service initialized");
   }
 
   trackError(errorData: ErrorData): void {
@@ -65,8 +63,6 @@ export class ErrorTrackingService {
       this.errors.shift();
     }
 
-    console.error("Error tracked:", errorData);
-
     if (
       this.config.errorTracking?.enabled &&
       this.config.errorTracking?.endpoint
@@ -76,31 +72,26 @@ export class ErrorTrackingService {
   }
 
   cleanupOldErrors(): void {
-    const oneHourAgo = Date.now() - 3600000;
+    const cleanupThreshold = Date.now() - this.config.errorTracking.cleanupIntervalMs;
     this.errors = this.errors.filter(
-      (error) => (error.timestamp as number) > oneHourAgo,
+      (error) => (error.timestamp as number) > cleanupThreshold,
     );
   }
 
   async sendToEndpoint(errorData: ErrorData): Promise<void> {
     try {
       if (!this.config.errorTracking?.endpoint) {
-        console.warn("Error tracking endpoint not configured.");
         return;
       }
-      const response = await fetch(this.config.errorTracking.endpoint, {
+      await fetch(this.config.errorTracking.endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(errorData),
       });
-
-      if (!response.ok) {
-        console.warn("Failed to send error to tracking endpoint");
-      }
-    } catch (error: unknown) {
-      console.warn("Error tracking endpoint unreachable:", error);
+    } catch (_error: unknown) {
+      // Silently fail - we don't want error tracking to cause more errors
     }
   }
 

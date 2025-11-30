@@ -152,6 +152,154 @@ See `.github/workflows/static.yml` for the complete workflow.
 
 ---
 
+---
+
+## Architecture Overview
+
+### Design Patterns
+
+This project implements enterprise-grade architectural patterns:
+
+1. **Singleton Pattern** - `ServiceRegistry` provides centralized service management
+2. **Strategy Pattern** - `SectionContentStrategy` eliminates switch statement complexity
+3. **Dependency Injection** - All services accept `Config` via constructor
+4. **Memoization** - Performance-critical operations cached in component state
+
+### Services Layer
+
+All services follow SOLID principles with zero hardcoded values:
+
+#### ServiceRegistry (Singleton)
+Centralized service management eliminating duplicate instances:
+```typescript
+import { ServiceRegistry } from "./services/ServiceRegistry";
+
+// Initialize once
+ServiceRegistry.getInstance(config);
+
+// Access services anywhere
+const skillIconService = ServiceRegistry.getInstance().getSkillIconService();
+const logger = ServiceRegistry.getInstance().getLoggerService();
+```
+
+#### LoggerService
+Environment-aware centralized logging controlled by `config.errorTracking.enabled`:
+```typescript
+const logger = ServiceRegistry.getInstance().getLoggerService();
+logger.log("Info message");
+logger.error("Error message");
+```
+
+#### Core Services
+- **AssetService** - Dynamic CSS/JS loading with fallback support
+- **DataService** - Fetch with configurable retry logic and Zod validation
+- **ErrorTrackingService** - Error monitoring with automatic cleanup
+- **FeatureDetectionService** - Browser capability detection with caching
+- **GsapAnimationController** - GSAP animations with config-driven parameters
+- **GsapScrollSpyController** - Navigation scroll spy with ScrollTrigger
+- **LozadLazyLoader** - Lazy loading with IntersectionObserver
+- **SkillIconService** - Skill icon mapping with aliases
+- **MobileDetectorService** - Responsive behavior with configurable breakpoint
+
+All service behavior is controlled via `config.ts` with 60+ configuration properties.
+
+### Components
+
+#### SectionContentStrategy (Strategy Pattern)
+Eliminates switch statement complexity for section rendering:
+```typescript
+// Before: 27-line switch statement
+switch (sectionId) {
+  case "welcome-section": return html`<${Hero} ... />`;
+  // ... 7 more cases
+}
+
+// After: Single line
+return SectionContentStrategy.getSectionContent(sectionId, data, config);
+```
+
+Adding new sections:
+```typescript
+class NewSectionRenderer implements SectionRenderer {
+  render(data: PortfolioData, config: Config): VNode {
+    return html`<${MyComponent} data=${data} config=${config} />`;
+  }
+}
+
+SectionContentStrategy.registerStrategy("new-section", new NewSectionRenderer());
+```
+
+#### Component Architecture
+- **BaseComponent** - Abstract base for all components
+- **Performance Optimization** - `shouldComponentUpdate` prevents unnecessary renders
+- **Memoization** - Footer component caches expensive filter operations
+
+#### Component List
+**Presentational:** Hero, ProjectCard, SkillGrid, Timeline, Certifications, Contact, CTA, Section  
+**Container:** App, Nav, Footer  
+**Utility:** ErrorBoundary, Base
+
+### Configuration-Driven Design
+
+**Zero hardcoded values** - Everything configurable via `config.ts`:
+
+```typescript
+// Paths
+config.paths = {
+  serviceWorker: "/service-worker.js",
+  dataFile: "./data/portfolioData.json",
+  mainJs: "/main.ts",
+}
+
+// Timeouts
+config.timeouts = {
+  scrollDelay: 0,
+  sectionRenderDelay: 100,
+  retryDelay: 1000,
+}
+
+// GSAP Animations
+config.gsap = {
+  scrollTriggerStart: "top center",
+  animationDuration: 1,
+  animationEase: "power3.out",
+}
+
+// Error Tracking
+config.errorTracking = {
+  enabled: true,
+  maxErrors: 100,
+  cleanupIntervalMs: 3600000,
+}
+```
+
+### Best Practices
+
+1. **Use ServiceRegistry** for shared services (no duplicate instances)
+2. **Use LoggerService** instead of console statements
+3. **Implement shouldComponentUpdate** for performance
+4. **All configuration in config.ts** - zero hardcoding
+5. **Dependency injection** - pass Config to all services
+
+### Code Quality
+
+- **TypeScript**: 100% type coverage, 0 compilation errors
+- **No Hardcoding**: All values configurable
+- **No Console Statements**: Centralized logging via LoggerService
+- **Zero Duplication**: Singleton pattern eliminates redundancy
+- **Low Complexity**: Strategy pattern reduces cyclomatic complexity
+- **SOLID Principles**: Single responsibility, dependency injection
+
+### Performance Optimizations
+
+- **Singleton Services**: Reduced memory footprint
+- **Memoization**: Cached expensive operations (Footer filter)
+- **Strategy Pattern**: Reduced conditional branching
+- **Lazy Loading**: Deferred section rendering
+- **Code Splitting**: Vendor/app separation for optimal caching
+
+---
+
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).

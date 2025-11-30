@@ -1,4 +1,12 @@
+import type { Config } from "../schemas";
+
 export class AssetService {
+  private config: Config;
+
+  constructor(config: Config) {
+    this.config = config;
+  }
+
   loadCss(href: string, fallback: string | null = null): Promise<void> {
     return new Promise((resolve, reject) => {
       const link = document.createElement("link");
@@ -8,9 +16,6 @@ export class AssetService {
       link.onload = () => resolve();
       link.onerror = () => {
         if (fallback) {
-          console.warn(
-            `Failed to load CSS from ${href}, trying fallback: ${fallback}`,
-          );
           const fallbackLink = document.createElement("link");
           fallbackLink.rel = "stylesheet";
           fallbackLink.href = fallback;
@@ -44,9 +49,6 @@ export class AssetService {
       script.onload = () => resolve();
       script.onerror = () => {
         if (fallback) {
-          console.warn(
-            `Failed to load script from ${src}, trying fallback: ${fallback}`,
-          );
           const fallbackScript = document.createElement("script");
           fallbackScript.src = fallback;
           fallbackScript.async = async;

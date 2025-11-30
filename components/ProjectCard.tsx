@@ -1,6 +1,6 @@
 import { html } from "htm/preact";
 import { BaseComponent } from "./Base";
-import { SkillIconService } from "../services/SkillIconService";
+import { ServiceRegistry } from "../services/ServiceRegistry";
 import type { Config, Project } from "../schemas";
 import type { JSX } from "preact";
 
@@ -10,12 +10,6 @@ interface ProjectCardProps {
 }
 
 export class ProjectCard extends BaseComponent<ProjectCardProps> {
-  private skillIconService: SkillIconService;
-
-  constructor(props: ProjectCardProps) {
-    super(props);
-    this.skillIconService = new SkillIconService(props.config); // Instantiate SkillIconService
-  }
 
   shouldComponentUpdate(nextProps: ProjectCardProps): boolean {
     return nextProps.project !== this.props.project;
@@ -43,7 +37,7 @@ export class ProjectCard extends BaseComponent<ProjectCardProps> {
             ${techBadges.map(
               (tech) => html`
               <span key=${tech} class="tech-badge">
-                <i class="${this.skillIconService.getSkillIcon(tech)}" aria-hidden="true"></i> ${tech}
+                <i class=\"${ServiceRegistry.getInstance().getSkillIconService().getSkillIcon(tech)}\" aria-hidden=\"true\"></i> ${tech}
               </span>
             `,
             )}

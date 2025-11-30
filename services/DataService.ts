@@ -15,8 +15,8 @@ export class DataService {
 
   async fetchWithRetry(
     url: string,
-    retries: number = 3,
-    delay: number = 1000,
+    retries: number = this.config.dataService.maxRetries,
+    delay: number = this.config.dataService.retryDelayMs,
   ): Promise<Response> {
     let lastError: unknown;
 
@@ -32,7 +32,7 @@ export class DataService {
       }
 
       if (i < retries - 1) {
-        await new Promise((resolve) => setTimeout(resolve, delay * 2 ** i));
+        await new Promise((resolve) => setTimeout(resolve, delay * (this.config.dataService.retryBackoffMultiplier ** i)));
       }
     }
 
@@ -45,8 +45,7 @@ export class DataService {
       const portfolioData: unknown = await response.json();
       return PortfolioDataSchema.parse(portfolioData);
     } catch (error: unknown) {
-      console.error(this.config.errors.dataFetchFailed, error);
-      throw error;
+      throw new Error(`${this.config.errors.dataFetchFailed} ${(error as Error)?.message || "Unknown error"}`);
     }
   }
 }

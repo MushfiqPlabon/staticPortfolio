@@ -1,5 +1,12 @@
+// Configuration is injected at build time or runtime
 const CACHE_NAME = "portfolio-v2";
 const RUNTIME_CACHE = "runtime-v2";
+const STATIC_ASSETS = ["/", "/index.html", "/favicon.svg"];
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_SERVICE_UNAVAILABLE = 503;
+const RESPONSE_TYPE_BASIC = "basic";
+const OFFLINE_MESSAGE = "Offline";
+const OFFLINE_STATUS_TEXT = "Service Unavailable";
 
 // Cache static assets during install
 self.addEventListener("install", (event) => {
@@ -7,11 +14,10 @@ self.addEventListener("install", (event) => {
     caches
       .open(CACHE_NAME)
       .then((cache) => {
-        console.log("Service Worker: Caching app shell");
-        return cache.addAll(["/", "/index.html", "/favicon.svg"]);
+        return cache.addAll(STATIC_ASSETS);
       })
-      .catch((error) => {
-        console.error("Service Worker: Cache installation failed", error);
+      .catch(() => {
+        // Silent fail - service worker will still install
       }),
   );
   self.skipWaiting();
@@ -28,7 +34,6 @@ self.addEventListener("activate", (event) => {
               cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE,
           )
           .map((cacheName) => {
-            console.log("Service Worker: Clearing old cache", cacheName);
             return caches.delete(cacheName);
           }),
       );
@@ -80,8 +85,8 @@ self.addEventListener("fetch", (event) => {
           // Don't cache non-successful responses
           if (
             !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
+            response.status !== HTTP_STATUS_OK ||
+            response.type !== RESPONSE_TYPE_BASIC
           ) {
             return response;
           }
@@ -95,10 +100,9 @@ self.addEventListener("fetch", (event) => {
         });
       })
       .catch(() => {
-        // Optionally return an offline page
-        return new Response("Offline", {
-          status: 503,
-          statusText: "Service Unavailable",
+        return new Response(OFFLINE_MESSAGE, {
+          status: HTTP_STATUS_SERVICE_UNAVAILABLE,
+          statusText: OFFLINE_STATUS_TEXT,
         });
       }),
   );

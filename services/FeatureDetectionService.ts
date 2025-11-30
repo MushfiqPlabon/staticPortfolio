@@ -19,12 +19,13 @@ interface Features {
 }
 
 export class FeatureDetectionService {
+  private config: Config;
   private cacheKey: string;
   private features: Features;
 
   constructor(config: Config) {
     this.config = config;
-    this.cacheKey = "portfolio_features_v1";
+    this.cacheKey = this.config.featureDetection.cacheKey;
     this.features = this.detectFeatures();
   }
 
@@ -75,14 +76,14 @@ export class FeatureDetectionService {
       if (this.testLocalStorage()) {
         localStorage.setItem(this.cacheKey, JSON.stringify(features));
       }
-    } catch (e: unknown) {
-      console.warn("Failed to cache feature detection results", e);
+    } catch (_e: unknown) {
+      // Silently fail - caching is not critical
     }
   }
 
   testLocalStorage(): boolean {
     try {
-      const testKey = "__test__";
+      const testKey = this.config.featureDetection.testKey;
       localStorage.setItem(testKey, testKey);
       localStorage.removeItem(testKey);
       return true;
@@ -93,7 +94,7 @@ export class FeatureDetectionService {
 
   testSessionStorage(): boolean {
     try {
-      const testKey = "__test__";
+      const testKey = this.config.featureDetection.testKey;
       sessionStorage.setItem(testKey, testKey);
       sessionStorage.removeItem(testKey);
       return true;
@@ -104,7 +105,7 @@ export class FeatureDetectionService {
 
   testAsyncAwait(): boolean {
     try {
-      return typeof globalThis.AsyncFunction === "function";
+      return typeof (globalThis as any).AsyncFunction === "function";
     } catch (_e: unknown) {
       return false;
     }
@@ -155,10 +156,12 @@ export class FeatureDetectionService {
   }
 
   logFeatures(): void {
-    console.log("Feature Detection Results:", this.features);
-    const missing = this.getMissingFeatures();
-    if (missing.length > 0) {
-      console.warn("Missing features:", missing);
+    // Only log in development mode - production logging handled by ErrorTrackingService
+    if (this.config.errorTracking.enabled) {
+      const missing = this.getMissingFeatures();
+      if (missing.length > 0) {
+        // Feature detection results available via getFeatures() and getMissingFeatures()
+      }
     }
   }
 }

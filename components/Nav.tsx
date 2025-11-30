@@ -1,7 +1,7 @@
 import { html } from "htm/preact";
 import clsx from "clsx";
 import { BaseComponent } from "./Base";
-import { MobileDetectorService } from "../services/MobileDetectorService";
+import { ServiceRegistry } from "../services/ServiceRegistry";
 import type { Config } from "../schemas";
 import type { JSX } from "preact";
 
@@ -17,20 +17,19 @@ interface NavState {
 
 export class Nav extends BaseComponent<NavProps, NavState> {
   private config: Config;
-  private mobileDetector: MobileDetectorService;
 
   constructor(props: NavProps) {
     super(props);
     this.config = props.config;
-    this.mobileDetector = new MobileDetectorService(this.config);
-    this.state = { isOpen: false, isMobile: this.mobileDetector.isMobile() };
+    const mobileDetector = ServiceRegistry.getInstance().getMobileDetectorService();
+    this.state = { isOpen: false, isMobile: mobileDetector.isMobile() };
     this.toggle = this.toggle.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleNavClick = this.handleNavClick.bind(this);
   }
 
   componentDidMount(): void {
-    this.mobileDetector.onChange(this.handleResize);
+    ServiceRegistry.getInstance().getMobileDetectorService().onChange(this.handleResize);
   }
 
   shouldComponentUpdate(_nextProps: NavProps, nextState: NavState): boolean {

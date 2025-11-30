@@ -1,10 +1,13 @@
 import { gsap } from "gsap";
+import type { Config } from "../schemas";
 
 export class GsapAnimationController {
+  private config: Config;
   private maxAnimatedElements: number;
 
-  constructor() {
-    this.maxAnimatedElements = 20;
+  constructor(config: Config) {
+    this.config = config;
+    this.maxAnimatedElements = this.config.animationController.maxAnimatedElements;
   }
 
   animate(sectionElement: HTMLElement): void {
@@ -20,11 +23,11 @@ export class GsapAnimationController {
     }
 
     gsap.from(elementsToAnimate, {
-      autoAlpha: 0,
-      y: 50,
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.2,
+      autoAlpha: this.config.gsap.animationAutoAlpha,
+      y: this.config.gsap.animationY,
+      duration: this.config.gsap.animationDuration,
+      ease: this.config.gsap.animationEase,
+      stagger: this.config.gsap.animationStagger,
     });
   }
 }

@@ -10,6 +10,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { DataService } from "./services/DataService";
 import { FeatureDetectionService } from "./services/FeatureDetectionService";
 import { ErrorTrackingService } from "./services/ErrorTrackingService";
+import { ServiceRegistry } from "./services/ServiceRegistry";
 import type { Config, PortfolioData } from "./schemas";
 
 class Application {
@@ -24,9 +25,10 @@ class Application {
   constructor() {
     this.root = document.getElementById("root");
     this.config = RAW_CONFIG;
-    this.assetService = new AssetService();
+    ServiceRegistry.getInstance(this.config);
+    this.assetService = new AssetService(this.config);
     this.dataService = new DataService(
-      "./data/portfolioData.json",
+      this.config.paths.dataFile,
       this.config,
     );
     this.styleService = new StyleService();
@@ -37,13 +39,21 @@ class Application {
   async registerServiceWorker(): Promise<void> {
     if (this.featureDetection.hasFeature("serviceWorker")) {
       try {
-        const registration = await navigator.serviceWorker.register(
-          "/service-worker.js",
-          { scope: "/" },
+        await navigator.serviceWorker.register(
+          this.config.paths.serviceWorker,
+          { scope: this.config.paths.serviceWorkerScope },
         );
-        console.log("Service Worker registered:", registration);
       } catch (error: unknown) {
-        console.warn("Service Worker registration failed:", error);
+        if (this.config.errorTracking.enabled) {
+          this.errorTracking.trackError({
+            message: "Service Worker registration failed",
+            stack: (error as Error)?.stack,
+            type: "global",
+            timestamp: new Date().toISOString(),
+            url: window.location.href,
+            userAgent: navigator.userAgent,
+          });
+        }
       }
     }
   }
@@ -54,12 +64,19 @@ class Application {
         throw new Error("Root element not found");
       }
 
-      this.featureDetection.logFeatures();
+      if (this.config.errorTracking.enabled) {
+        this.featureDetection.logFeatures();
+      }
 
-      if (!this.featureDetection.isFullySupported()) {
-        console.warn(
-          "Browser missing required features, some functionality may not work",
-        );
+      if (!this.featureDetection.isFullySupported() && this.config.errorTracking.enabled) {
+        const missingFeatures = this.featureDetection.getMissingFeatures();
+        this.errorTracking.trackError({
+          message: `Browser missing required features: ${missingFeatures.join(", ")}`,
+          type: "global",
+          timestamp: new Date().toISOString(),
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+        });
       }
 
       if (this.config.errorTracking.enabled) {
@@ -96,7 +113,16 @@ class Application {
         this.root,
       );
     } catch (error: unknown) {
-      console.error("Application initialization failed:", error);
+      if (this.config.errorTracking.enabled) {
+        this.errorTracking.trackError({
+          message: (error as Error)?.message || "Application initialization failed",
+          stack: (error as Error)?.stack,
+          type: "global",
+          timestamp: new Date().toISOString(),
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+        });
+      }
       if (this.root) {
         const safeMessage = String(
           (error as Error)?.message || this.config.errors.unknownError,

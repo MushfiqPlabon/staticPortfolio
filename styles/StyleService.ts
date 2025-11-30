@@ -158,9 +158,8 @@ class StyleService {
           .projects-grid, .skills-grid, .certifications-grid { column-count: 1; }
         }
       `;
-    } catch (error) {
-      console.error("Style initialization failed:", error);
-      throw error;
+    } catch (_error) {
+      throw new Error("Style initialization failed");
     }
   }
 }

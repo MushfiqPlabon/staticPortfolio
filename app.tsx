@@ -2,19 +2,14 @@ import { html } from "htm/preact";
 import { Component, createRef, type RefObject } from "preact";
 import {
   Nav,
-  Hero,
-  ProjectCard,
-  SkillGrid,
-  Timeline,
   Footer,
-  Contact,
-  Certifications,
   Section,
   ErrorBoundary,
 } from "./components";
 import { GsapScrollSpyController } from "./services/GsapScrollSpyController";
 import { LozadLazyLoader } from "./services/LozadLazyLoader";
 import { GsapAnimationController } from "./services/GsapAnimationController";
+import { SectionContentStrategy } from "./components/SectionContentStrategy";
 import type { Config, PortfolioData } from "./schemas";
 import type { FeatureDetectionService } from "./services/FeatureDetectionService";
 
@@ -66,7 +61,7 @@ export class App extends Component<AppProps, AppState> {
 
     this.markSectionAsRendered = this.markSectionAsRendered.bind(this);
     this.handleNavClick = this.handleNavClick.bind(this);
-    this.animationController = new GsapAnimationController();
+    this.animationController = new GsapAnimationController(this.config);
     this.lazyLoader = new LozadLazyLoader(
       this.markSectionAsRendered,
       this.featureDetection,
@@ -93,18 +88,12 @@ export class App extends Component<AppProps, AppState> {
         sectionRenderedByClick: sectionId,
       }),
       () => {
-        // Use a minimal timeout to ensure the DOM has been updated with all intermediate sections
-        // before we attempt to scroll.
         setTimeout(() => {
           const sectionElement = document.getElementById(sectionId);
           if (sectionElement) {
             sectionElement.scrollIntoView({ behavior: "auto" });
-          } else {
-            console.warn(
-              `handleNavClick: Could not find element with id ${sectionId} after render.`,
-            );
           }
-        }, 0);
+        }, this.config.timeouts.scrollDelay);
       },
     );
   }
@@ -125,14 +114,9 @@ export class App extends Component<AppProps, AppState> {
         this.config,
       );
       this.scrollSpyController.init();
-      // Create triggers for sections that are already rendered on load
       this.state.renderedSections.forEach((id) => {
         this.scrollSpyController?.createTriggerFor(id);
       });
-    } else {
-      console.warn(
-        "navRef.current is null. GsapScrollSpyController not initialized.",
-      );
     }
 
     // 2. Initialize Lazy Loading for Sections
@@ -155,10 +139,6 @@ export class App extends Component<AppProps, AppState> {
           const sectionElement = this.sectionRefs[id].current;
           if (sectionElement) {
             this.animationController.animate(sectionElement);
-          } else {
-            console.warn(
-              `Section element with id ${id} not found for animation.`,
-            );
           }
         }
       });
@@ -169,9 +149,8 @@ export class App extends Component<AppProps, AppState> {
     }
   }
 
-  componentDidCatch(error: Error, info: { componentStack?: string }): void {
+  componentDidCatch(error: Error, _info: { componentStack?: string }): void {
     this.setState({ hasError: true, error });
-    console.error("App component error:", error, info);
   }
 
   getSectionContent(
@@ -179,31 +158,7 @@ export class App extends Component<AppProps, AppState> {
     validatedData: PortfolioData,
     config: Config,
   ): preact.JSX.Element | null {
-    const sectionTitleKey = sectionId.split("-")[0]; // e.g., "projects-section" -> "projects"
-    const _title =
-      config.components.sectionTitles[
-        sectionTitleKey as keyof Config["components"]["sectionTitles"]
-      ] || ""; // Fallback for safety
-
-    switch (sectionId) {
-      case "welcome-section":
-        return html`<${Hero} profile=${validatedData.profile} config=${config} />`;
-      case "projects-section":
-        return html`<div class="projects-grid">${validatedData.projects.map((p) => html`<${ProjectCard} key=${p.id} project=${p} config=${config} />`)}</div>`;
-      case "skills-section":
-        return html`<${SkillGrid} skills=${validatedData.skills} config=${config} />`;
-      case "experience-section":
-        return html`<${Timeline} items=${validatedData.experience} type="experience" config=${config} />`;
-      case "learning-section":
-        return html`<${Timeline} items=${validatedData.learning} type="learning" config=${config} />`;
-      case "certifications-section":
-        return html`<${Certifications} certifications=${validatedData.certifications} config=${config} />`;
-      case "contact-section":
-        return html`<${Contact} contact=${validatedData.profile.contact} config=${config} />`;
-      default:
-        console.warn(`No content defined for section: ${sectionId}`);
-        return null;
-    }
+    return SectionContentStrategy.getSectionContent(sectionId, validatedData, config);
   }
 
   render(): preact.JSX.Element {

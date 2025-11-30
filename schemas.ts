@@ -281,9 +281,62 @@ export const ConfigSchema = z.object({
   css: z.record(z.string()),
   components: ComponentsSchema,
   scroll: ScrollSchema,
+  paths: z.object({
+    serviceWorker: z.string(),
+    serviceWorkerScope: z.string(),
+    dataFile: z.string(),
+    mainJs: z.string(),
+    indexHtml: z.string(),
+    favicon: z.string(),
+    root: z.string(),
+  }),
+  cache: z.object({
+    name: z.string(),
+    runtime: z.string(),
+    version: z.string(),
+    staticAssets: z.array(z.string()),
+  }),
+  http: z.object({
+    statusOk: z.number(),
+    statusServiceUnavailable: z.number(),
+    responseTypeBasic: z.string(),
+    offlineMessage: z.string(),
+    offlineStatusText: z.string(),
+  }),
+  timeouts: z.object({
+    scrollDelay: z.number(),
+    sectionRenderDelay: z.number(),
+    retryDelay: z.number(),
+  }),
+  gsap: z.object({
+    scrollTriggerStart: z.string(),
+    scrollTriggerEnd: z.string(),
+    animationAutoAlpha: z.number(),
+    animationY: z.number(),
+    animationDuration: z.number(),
+    animationEase: z.string(),
+    animationStagger: z.number(),
+  }),
+  lozad: z.object({
+    threshold: z.number(),
+  }),
   errorTracking: z.object({
     enabled: z.boolean(),
     endpoint: z.string().nullable(),
+    maxErrors: z.number(),
+    cleanupIntervalMs: z.number(),
+  }),
+  featureDetection: z.object({
+    cacheKey: z.string(),
+    testKey: z.string(),
+  }),
+  dataService: z.object({
+    maxRetries: z.number(),
+    retryDelayMs: z.number(),
+    retryBackoffMultiplier: z.number(),
+  }),
+  animationController: z.object({
+    maxAnimatedElements: z.number(),
   }),
   errors: z.record(z.string()),
 });

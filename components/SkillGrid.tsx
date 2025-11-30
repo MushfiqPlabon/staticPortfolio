@@ -1,6 +1,6 @@
 import { html } from "htm/preact";
 import { BaseComponent } from "./Base";
-import { SkillIconService } from "../services/SkillIconService";
+import { ServiceRegistry } from "../services/ServiceRegistry";
 import type { Config, Skills } from "../schemas";
 import type { JSX } from "preact";
 
@@ -10,12 +10,6 @@ interface SkillGridProps {
 }
 
 export class SkillGrid extends BaseComponent<SkillGridProps> {
-  private skillIconService: SkillIconService;
-
-  constructor(props: SkillGridProps) {
-    super(props);
-    this.skillIconService = new SkillIconService(props.config); // Instantiate SkillIconService
-  }
 
   shouldComponentUpdate(nextProps: SkillGridProps): boolean {
     return nextProps.skills !== this.props.skills;
@@ -50,7 +44,7 @@ export class SkillGrid extends BaseComponent<SkillGridProps> {
               ${cat.items.map(
                 (skill) => html`
                 <li key=${skill}>
-                  <i class="${this.skillIconService.getSkillIcon(skill)}" aria-hidden="true"></i>
+                  <i class=\"${ServiceRegistry.getInstance().getSkillIconService().getSkillIcon(skill)}\" aria-hidden=\"true\"></i>
                   ${skill}
                 </li>
               `,

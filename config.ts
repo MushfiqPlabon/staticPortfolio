@@ -570,10 +570,6 @@ export const RAW_CONFIG: Config = {
     callbackRequired: "Callback must be a function",
     interactiveEffectsInitFailed: "InteractiveEffects initialization failed:",
   },
-  errorTracking: {
-    enabled: true,
-    endpoint: null,
-  },
   scroll: {
     throttleLimit: 100,
     lazyLoadMargin: 200,
@@ -582,5 +578,62 @@ export const RAW_CONFIG: Config = {
     backToTopThreshold: 300,
     rootMargin: "-40% 0rem -40% 0rem",
     threshold: [0, 0.25, 0.5, 0.75, 1],
+  },
+  paths: {
+    serviceWorker: "/service-worker.js",
+    serviceWorkerScope: "/",
+    dataFile: "./data/portfolioData.json",
+    mainJs: "/main.js",
+    indexHtml: "/index.html",
+    favicon: "/favicon.svg",
+    root: "/",
+  },
+  cache: {
+    name: "portfolio-v2",
+    runtime: "runtime-v2",
+    version: "v2",
+    staticAssets: ["/", "/index.html", "/favicon.svg"],
+  },
+  http: {
+    statusOk: 200,
+    statusServiceUnavailable: 503,
+    responseTypeBasic: "basic",
+    offlineMessage: "Offline",
+    offlineStatusText: "Service Unavailable",
+  },
+  timeouts: {
+    scrollDelay: 0,
+    sectionRenderDelay: 100,
+    retryDelay: 1000,
+  },
+  gsap: {
+    scrollTriggerStart: "top center",
+    scrollTriggerEnd: "bottom center",
+    animationAutoAlpha: 0,
+    animationY: 50,
+    animationDuration: 1,
+    animationEase: "power3.out",
+    animationStagger: 0.2,
+  },
+  lozad: {
+    threshold: 0.1,
+  },
+  errorTracking: {
+    enabled: true,
+    endpoint: null,
+    maxErrors: 100,
+    cleanupIntervalMs: 3600000,
+  },
+  featureDetection: {
+    cacheKey: "portfolio_features_v1",
+    testKey: "__test__",
+  },
+  dataService: {
+    maxRetries: 3,
+    retryDelayMs: 1000,
+    retryBackoffMultiplier: 2,
+  },
+  animationController: {
+    maxAnimatedElements: 20,
   },
 } as const;

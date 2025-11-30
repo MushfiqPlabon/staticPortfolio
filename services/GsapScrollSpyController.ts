@@ -1,3 +1,4 @@
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Config, NavSection } from "../schemas";
 
@@ -7,6 +8,9 @@ export class GsapScrollSpyController {
   private navLinks: NodeListOf<HTMLAnchorElement>;
 
   constructor(navRef: HTMLElement, config: Config) {
+    // Register ScrollTrigger plugin if not already registered
+    gsap.registerPlugin(ScrollTrigger);
+    
     this.navRef = navRef;
     this.config = config;
     this.navLinks = this.navRef.querySelectorAll("a");
@@ -25,8 +29,8 @@ export class GsapScrollSpyController {
 
     ScrollTrigger.create({
       trigger: `#${sectionId}`,
-      start: "top center",
-      end: "bottom center",
+      start: this.config.gsap.scrollTriggerStart,
+      end: this.config.gsap.scrollTriggerEnd,
       onToggle: (self) => {
         if (self.isActive) {
           this.navLinks.forEach((link) => {

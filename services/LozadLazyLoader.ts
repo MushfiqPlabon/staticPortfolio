@@ -4,6 +4,7 @@ import type { FeatureDetectionService } from "./FeatureDetectionService";
 
 export class LozadLazyLoader {
   private markSectionAsRendered: (sectionId: string) => void;
+  private featureDetection: FeatureDetectionService | null;
   private config: Config;
   private fallbackMode: boolean;
 
@@ -22,18 +23,15 @@ export class LozadLazyLoader {
 
   init(): void {
     if (this.fallbackMode) {
-      console.warn(
-        "IntersectionObserver not supported, loading all sections immediately",
-      );
       setTimeout(() => {
         this.loadAllSections();
-      }, 100);
+      }, this.config.timeouts.sectionRenderDelay);
       return;
     }
 
     const observer = lozad(".lozad", {
       rootMargin: this.config.scroll.lazyLoadRootMargin,
-      threshold: 0.1,
+      threshold: this.config.lozad.threshold,
       load: (el: HTMLElement) => {
         const sectionId = el.getAttribute("data-section-id");
         if (sectionId) {
@@ -47,10 +45,9 @@ export class LozadLazyLoader {
   loadAllSections(): void {
     const sections = document.querySelectorAll(".lozad[data-section-id]");
     if (sections.length === 0) {
-      console.warn("No sections found, retrying...");
       setTimeout(() => {
         this.loadAllSections();
-      }, 100);
+      }, this.config.timeouts.sectionRenderDelay);
       return;
     }
     sections.forEach((el) => {
