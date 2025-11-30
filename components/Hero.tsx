@@ -1,13 +1,20 @@
-import { html } from 'htm/preact';
-import { BaseComponent } from './Base.js';
-import { CTA } from './index.js';
+import { html } from "htm/preact";
+import { BaseComponent } from "./Base";
+import { CTA } from "./CTA";
+import type { Config, Profile } from "../schemas";
+import type { JSX } from "preact";
 
-export class Hero extends BaseComponent {
-  shouldComponentUpdate(nextProps) {
+interface HeroProps {
+  profile: Profile;
+  config: Config;
+}
+
+export class Hero extends BaseComponent<HeroProps> {
+  shouldComponentUpdate(nextProps: HeroProps): boolean {
     return nextProps.profile !== this.props.profile;
   }
 
-  render() {
+  render(): JSX.Element {
     const { profile, config } = this.props;
     const { name, title, objective } = profile;
 

@@ -1,0 +1,29 @@
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "always"
+    }
+  },
+  "files": {
+    "includes": [
+      "*.js",
+      "*.ts",
+      "*.tsx",
+      "components/**/*.{js,ts,tsx}",
+      "services/**/*.{js,ts,tsx}",
+      "styles/**/*.{js,ts,tsx}",
+      "public/**/*.{js,ts}"
+    ]
+  }
+}

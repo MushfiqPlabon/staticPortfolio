@@ -1,40 +1,52 @@
-import { html } from 'htm/preact';
-import { BaseComponent } from './Base.js';
-import { SkillIconService } from '../services/SkillIconService.js'; // Import SkillIconService
+import { html } from "htm/preact";
+import { BaseComponent } from "./Base";
+import { SkillIconService } from "../services/SkillIconService";
+import type { Config, Project } from "../schemas";
+import type { JSX } from "preact";
 
-export class ProjectCard extends BaseComponent {
-  constructor(props) {
+interface ProjectCardProps {
+  project: Project;
+  config: Config;
+}
+
+export class ProjectCard extends BaseComponent<ProjectCardProps> {
+  private skillIconService: SkillIconService;
+
+  constructor(props: ProjectCardProps) {
     super(props);
     this.skillIconService = new SkillIconService(props.config); // Instantiate SkillIconService
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: ProjectCardProps): boolean {
     return nextProps.project !== this.props.project;
   }
 
-  handleImageLoad(e) {
-    e.target.classList.add('loaded');
+  handleImageLoad(e: Event): void {
+    const target = e.target as HTMLImageElement;
+    target.classList.add("loaded");
   }
 
-  render() {
+  render(): JSX.Element {
     const { project, config } = this.props;
     const { title, stack, description, imageUrl, imageAlt, links } = project;
-    const techBadges = stack.split(',').map(t => t.trim());
+    const techBadges = stack.split(",").map((t) => t.trim());
     const cfg = config.components.projectCard;
 
     return html`
       <article class="project-card">
         <header>
-          <img src=${imageUrl} alt=${imageAlt} loading="lazy" decoding="async" class="project-image" onLoad=${(e) => this.handleImageLoad(e)} />
+          <img src=${imageUrl} alt=${imageAlt} loading="lazy" decoding="async" class="project-image" onLoad=${(e: Event) => this.handleImageLoad(e)} />
         </header>
         <div class="card-content">
           <h3>${title}</h3>
           <div class="tech-badges">
-            ${techBadges.map(tech => html`
+            ${techBadges.map(
+              (tech) => html`
               <span key=${tech} class="tech-badge">
                 <i class="${this.skillIconService.getSkillIcon(tech)}" aria-hidden="true"></i> ${tech}
               </span>
-            `)}
+            `,
+            )}
           </div>
           <p>${description}</p>
           <div class="project-links">

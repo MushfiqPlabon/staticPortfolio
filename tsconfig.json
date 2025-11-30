@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "react": ["./node_modules/preact/compat"],
+      "react-dom": ["./node_modules/preact/compat"]
+    }
+  },
+  "include": [
+    "*.js",
+    "*.ts",
+    "*.d.ts",
+    "*.tsx",
+    "components/**/*.js",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "services/**/*.js",
+    "services/**/*.ts",
+    "services/**/*.tsx",
+    "styles/**/*.js",
+    "styles/**/*.ts",
+    "styles/**/*.tsx",
+    "public/**/*.js",
+    "public/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

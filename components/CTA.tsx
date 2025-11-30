@@ -1,12 +1,18 @@
-import { html } from 'htm/preact';
-import { BaseComponent } from './Base.js';
-import { Button } from './Button.js';
+import { html } from "htm/preact";
+import { BaseComponent } from "./Base";
+import { Button } from "./Button";
+import type { Config } from "../schemas";
+import type { JSX } from "preact";
 
-export class CTA extends BaseComponent {
-  shouldComponentUpdate(nextProps) {
+interface CTAProps {
+  config: Config;
+}
+
+export class CTA extends BaseComponent<CTAProps> {
+  shouldComponentUpdate(nextProps: CTAProps): boolean {
     const currentCta = this.props.config.components.hero.cta;
     const nextCta = nextProps.config.components.hero.cta;
-    
+
     return (
       currentCta.primary.href !== nextCta.primary.href ||
       currentCta.primary.label !== nextCta.primary.label ||
@@ -17,8 +23,9 @@ export class CTA extends BaseComponent {
     );
   }
 
-  render() {
-    const { primary, secondary, resume } = this.props.config.components.hero.cta;
+  render(): JSX.Element {
+    const { primary, secondary, resume } =
+      this.props.config.components.hero.cta;
 
     return html`
       <div class="hero-cta">

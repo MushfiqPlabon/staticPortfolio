@@ -1,10 +1,11 @@
-import { setup, glob } from 'goober';
-import { h } from 'preact';
+import { setup, glob } from "goober";
+import { h } from "preact";
+import type { Config } from "../schemas";
 
 setup(h);
 
 class StyleService {
-  init(CONFIG) {
+  init(CONFIG: Config) {
     try {
       glob`
         *, *::before, *::after { box-sizing: ${CONFIG.css.inherit}; }
@@ -60,16 +61,16 @@ class StyleService {
         .nav-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: ${CONFIG.spacing.md}; }
         .nav-list a { display: block; font-size: ${CONFIG.fonts.navBase}; padding: ${CONFIG.spacing.navVertical} ${CONFIG.spacing.lg}; color: ${CONFIG.colors.navbarText}; transition: all ${CONFIG.transitions.medium} cubic-bezier(0.4, 0, 0.2, 1); position: relative; border-radius: ${CONFIG.radius.sm}; }
         .nav-list a::after { content: ""; position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 0.2rem; background: ${CONFIG.colors.glowPrimary}; transition: transform ${CONFIG.transitions.medium} ${CONFIG.css.ease}; box-shadow: 0 0 1rem ${CONFIG.colors.glowPrimary}; }
-        .nav-list a:hover, .nav-list a:focus-visible, .nav-list a.active { color: ${CONFIG.colors.glowStrong}; text-shadow: ${CONFIG.textShadows.glowPrimary}; outline: none; background: rgba(255, 94, 0, 0.1); animation: neonGlow 2s ease infinite; }
+        .nav-list a:hover, .nav-list a:focus-visible, .nav-list a.active { color: ${CONFIG.colors.glowStrong}; text-shadow: ${CONFIG.textShadows.glowPrimary}; outline: none; background: ${CONFIG.numbers.navBgHover}; animation: neonGlow 2s ease infinite; }
         .nav-list a:hover::after, .nav-list a:focus-visible::after, .nav-list a.active::after { transform: translateX(-50%) scaleX(1); }
         
         .welcome-section { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 100%; min-height: 100vh; padding: ${CONFIG.spacing.xl} ${CONFIG.spacing.lg}; padding-top: ${CONFIG.layout.navHeight}; position: relative; isolation: isolate; }
-        .welcome-section::before { content: ""; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); width: clamp(25rem, 40vw, 60rem); height: clamp(25rem, 40vw, 60rem); background: radial-gradient(circle, rgba(255, 94, 0, 0.2) 0%, transparent 70%); filter: blur(10rem); animation: pulse ${CONFIG.animation.pulseDuration} ease-in-out infinite; pointer-events: none; z-index: -1; }
+        .welcome-section::before { content: ""; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); width: clamp(25rem, 40vw, 60rem); height: clamp(25rem, 40vw, 60rem); background: ${CONFIG.gradients.radialGlow.replace("{glowPrimaryFade}", CONFIG.colors.glowPrimaryFade)}; filter: blur(10rem); animation: pulse ${CONFIG.animation.pulseDuration} ease-in-out infinite; pointer-events: none; z-index: -1; }
         .welcome-section h1, .welcome-section > p { position: relative; z-index: 10; backface-visibility: hidden; transform: translateZ(0); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
         
-        .project-card, .skills-category, .certification-card, .experience-card, .education-card { background: ${CONFIG.colors.projectBgLight}; backdrop-filter: blur(${CONFIG.blur.standard}) saturate(1.8); border: ${CONFIG.borders.thin} solid ${CONFIG.colors.borderLight}; border-radius: ${CONFIG.radius.md}; padding: ${CONFIG.spacing.lg}; transition: all ${CONFIG.transitions.slow} cubic-bezier(0.4, 0, 0.2, 1); box-shadow: ${CONFIG.shadows.glass}; position: relative; overflow: hidden; will-change: transform; height: fit-content; cursor: pointer; }
-        .project-card:hover, .skills-category:hover, .certification-card:hover, .experience-card:hover, .education-card:hover { transform: translateY(-0.8rem) scale(1.02); backdrop-filter: blur(${CONFIG.blur.strong}) saturate(2); background: ${CONFIG.colors.projectBgHover}; border-color: ${CONFIG.colors.borderHover}; box-shadow: ${CONFIG.shadows.glassHover}, 0 0 2rem ${CONFIG.colors.glowPrimary}; animation: neonPulse 1s ease infinite; }
-        .project-card:active, .skills-category:active, .certification-card:active, .experience-card:active, .education-card:active { transform: scale(0.98); }
+        .project-card, .skills-category, .certification-card, .experience-card, .learning-card { background: ${CONFIG.colors.projectBgLight}; backdrop-filter: blur(${CONFIG.blur.standard}) saturate(1.8); border: ${CONFIG.borders.thin} solid ${CONFIG.colors.borderLight}; border-radius: ${CONFIG.radius.md}; padding: ${CONFIG.spacing.lg}; transition: all ${CONFIG.transitions.slow} cubic-bezier(0.4, 0, 0.2, 1); box-shadow: ${CONFIG.shadows.glass}; position: relative; overflow: hidden; will-change: transform; height: fit-content; cursor: pointer; }
+        .project-card:hover, .skills-category:hover, .certification-card:hover, .experience-card:hover, .learning-card:hover { transform: translateY(-0.8rem) scale(1.02); backdrop-filter: blur(${CONFIG.blur.strong}) saturate(2); background: ${CONFIG.colors.projectBgHover}; border-color: ${CONFIG.colors.borderHover}; box-shadow: ${CONFIG.shadows.glassHover}, 0 0 2rem ${CONFIG.colors.glowPrimary}; animation: neonPulse 1s ease infinite; }
+        .project-card:active, .skills-category:active, .certification-card:active, .experience-card:active, .learning-card:active { transform: scale(0.98); }
         
         button, a[role="button"] { background: ${CONFIG.colors.projectBgLight}; backdrop-filter: blur(${CONFIG.blur.standard}) saturate(1.8); border: ${CONFIG.borders.thin} solid ${CONFIG.colors.borderLight}; box-shadow: ${CONFIG.shadows.glass}; display: inline-flex; align-items: center; justify-content: center; padding: ${CONFIG.spacing.md} ${CONFIG.spacing.xl}; font-size: ${CONFIG.fonts.base}; text-decoration: none; border-radius: ${CONFIG.radius.md}; color: ${CONFIG.colors.mainWhite}; cursor: pointer; font-family: inherit; line-height: 1.5; transition: all ${CONFIG.transitions.medium} ${CONFIG.css.ease}; position: relative; overflow: hidden; }
         button:hover, a[role="button"]:hover { backdrop-filter: blur(${CONFIG.blur.strong}) saturate(2); border-color: ${CONFIG.colors.borderHover}; transform: translateY(-0.4rem); box-shadow: ${CONFIG.shadows.buttonGlass}; animation: neonPulse 1s ease infinite; }
@@ -158,7 +159,7 @@ class StyleService {
         }
       `;
     } catch (error) {
-      console.error('Style initialization failed:', error);
+      console.error("Style initialization failed:", error);
       throw error;
     }
   }

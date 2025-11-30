@@ -1,14 +1,25 @@
-import { PortfolioDataSchema } from '../schemas.js';
+import {
+  PortfolioDataSchema,
+  type PortfolioData,
+  type Config,
+} from "../schemas";
 
 export class DataService {
-  constructor(dataPath, config) {
+  private dataPath: string;
+  private config: Config;
+
+  constructor(dataPath: string, config: Config) {
     this.dataPath = dataPath;
     this.config = config;
   }
 
-  async fetchWithRetry(url, retries = 3, delay = 1000) {
-    let lastError;
-    
+  async fetchWithRetry(
+    url: string,
+    retries: number = 3,
+    delay: number = 1000,
+  ): Promise<Response> {
+    let lastError: unknown;
+
     for (let i = 0; i < retries; i++) {
       try {
         const response = await fetch(url);
@@ -16,24 +27,24 @@ export class DataService {
           return response;
         }
         lastError = new Error(`HTTP error! status: ${response.status}`);
-      } catch (error) {
+      } catch (error: unknown) {
         lastError = error;
       }
-      
+
       if (i < retries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
+        await new Promise((resolve) => setTimeout(resolve, delay * 2 ** i));
       }
     }
-    
+
     throw lastError;
   }
 
-  async getPortfolioData() {
+  async getPortfolioData(): Promise<PortfolioData> {
     try {
       const response = await this.fetchWithRetry(this.dataPath);
-      const portfolioData = await response.json();
+      const portfolioData: unknown = await response.json();
       return PortfolioDataSchema.parse(portfolioData);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(this.config.errors.dataFetchFailed, error);
       throw error;
     }
