@@ -1,6 +1,6 @@
-import { html } from "https://esm.sh/htm@3/preact";
-import { Component, createRef } from "https://esm.sh/preact@10";
-import { Nav, Hero, ProjectCard, SkillGrid, Timeline, Footer, Contact, Certifications, Section, ErrorBoundary } from "./components/index.js";
+import { html } from 'htm/preact';
+import { Component, createRef } from 'preact';
+import { Nav, Hero, ProjectCard, SkillGrid, Timeline, Footer, Contact, Certifications, Section, ErrorBoundary } from './components/index.js';
 import { GsapScrollSpyController } from './services/GsapScrollSpyController.js';
 import { LozadLazyLoader } from './services/LozadLazyLoader.js';
 import { GsapAnimationController } from './services/GsapAnimationController.js';

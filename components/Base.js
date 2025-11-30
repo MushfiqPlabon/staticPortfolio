@@ -1,4 +1,4 @@
-import { Component } from 'https://esm.sh/preact@10';
+import { Component } from 'preact';
 
 export class BaseComponent extends Component {
   constructor(props) {

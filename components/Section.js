@@ -1,5 +1,5 @@
-import { html } from 'https://esm.sh/htm@3/preact';
-import { Component } from 'https://esm.sh/preact@10';
+import { html } from 'htm/preact';
+import { Component } from 'preact';
 
 export class Section extends Component {
   shouldComponentUpdate(nextProps) {

@@ -1,5 +1,5 @@
-import { setup, glob } from 'https://esm.sh/goober@2';
-import { h } from 'https://esm.sh/preact@10';
+import { setup, glob } from 'goober';
+import { h } from 'preact';
 
 setup(h);
 
@@ -126,21 +126,6 @@ class StyleService {
         .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .back-to-top:hover { background: ${CONFIG.colors.glowPrimary}; color: ${CONFIG.colors.mainBlack}; transform: translateY(-0.4rem); box-shadow: 0 0 2rem ${CONFIG.colors.glowPrimary}; animation: neonPulse 1s ease infinite; }
         .back-to-top:active { transform: scale(0.9); }
-        
-        body.using-mouse #smokey-fluid-canvas {
-          display: block;
-        }
-        
-        #smokey-fluid-canvas {
-          display: none;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: -1;
-        }
 
         .hero-title {
           font-size: clamp(2.4rem, 3vw, 2.8rem);

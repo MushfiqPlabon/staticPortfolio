@@ -1,5 +1,5 @@
-import { html } from 'https://esm.sh/htm@3/preact';
-import clsx from 'https://esm.sh/clsx@2';
+import { html } from 'htm/preact';
+import clsx from 'clsx';
 import { BaseComponent } from './Base.js';
 import { MobileDetectorService } from '../services/MobileDetectorService.js';
 
