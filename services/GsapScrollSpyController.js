@@ -1,3 +1,5 @@
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 export class GsapScrollSpyController {
   constructor(navRef, config) {
     this.navRef = navRef;

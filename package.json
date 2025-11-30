@@ -1,0 +1,28 @@
+{
+  "name": "modern-static-portfolio",
+  "version": "2.0.0",
+  "type": "module",
+  "private": true,
+  "description": "High-performance portfolio with zero-latency first load",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "goober": "^2.1.14",
+    "gsap": "^3.12.5",
+    "htm": "^3.1.1",
+    "lozad": "^1.16.0",
+    "preact": "^10.19.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.11",
+    "vite-plugin-compression": "^0.5.1",
+    "@vitejs/plugin-legacy": "^5.2.0",
+    "rollup-plugin-visualizer": "^5.12.0"
+  }
+}

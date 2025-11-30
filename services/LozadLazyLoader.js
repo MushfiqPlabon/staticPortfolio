@@ -1,3 +1,5 @@
+import lozad from 'lozad';
+
 export class LozadLazyLoader {
   constructor(markSectionAsRendered, featureDetection = null) {
     this.markSectionAsRendered = markSectionAsRendered;

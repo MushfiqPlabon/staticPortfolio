@@ -1,4 +1,4 @@
-import { z } from 'https://esm.sh/zod@3';
+import { z } from 'zod';
 
 const ContactSchema = z.object({
   location: z.string(),

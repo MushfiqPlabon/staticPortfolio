@@ -1,4 +1,4 @@
-import { html } from 'https://esm.sh/htm@3/preact';
+import { html } from 'htm/preact';
 import { BaseComponent } from './Base.js';
 import { Button } from './Button.js';
 
